@@ -1,4 +1,4 @@
-      <div class ='ui segments'>
+      <div class ='ui segments' style ='margin:10px'>
         @if (isset($insidethelab))
           <div class ='ui blue inverted segment headitem'>
         @else
@@ -6,7 +6,7 @@
         @endif
           <a class='subitem' value ='1'href ='/dashboard/'>Show students inside the lab</a>
         </div>
-          @if (isset($role))
+          @if (!empty($role))
             @if (isset($allstudents))
               <div  class ='ui blue inverted segment headitem'>
             @else

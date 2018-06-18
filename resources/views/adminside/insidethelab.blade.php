@@ -1,5 +1,5 @@
-@include("dashboardheader")
-@include ("adminside/adminsidebar")
+@include("adminside.dashboardheader")
+@include ("adminside.adminsidebar")
 @include("modals")
       <div class ='ui segment' style ='width:45%'>
         <div class ='header'>
@@ -7,6 +7,9 @@
         </div>
         <div class ='content' style =' font-size:0.9em'>
           <button class ='ui blue button addbtn' id ='studentsinlab' style ='margin-bottom:10px'>Add</button><br/>
+          @if(isset($role))
+            asdasd
+          @endif
           <table class= 'ui fixed celled striped table' >
             <thead>
               <tr>
@@ -20,23 +23,23 @@
               </tr>
             </thead>
             <tbody id = 'onlabtbody'>
-              {% for result in results %}
+              @foreach($results as $result)
               <tr>
-                <td>{{ result.studentnumber }}</td>
-                <td>{{ result.student_firstname }}</td>
-                <td>{{ result.student_lastname }}</td>
-                <td>{{result.course}}</td>
-                <td>{{ result.student_timein }}</td>
-                <td>{{ result.terminal_name }} </td>
+                <td>{{ $result->studentnumber }}</td>
+                <td>{{ $result->firstname }}</td>
+                <td>{{ $result->lastname }}</td>
+                <td>{{$result->course}}</td>
+                <td>{{ $result->time_in }}</td>
+                <td>{{ $result->name }} </td>
                 <td>
                   <form method ='post' style ='margin-bottom:0px'>
-                    {% csrf_token %}
-                    <input type ='hidden' name ='id' value ='{{result.student_id}}'/>
+                    @csrf
+                    <input type ='hidden' name ='id' value ='{{$result->student_id}}'/>
                     <input type ='submit' name ='timeout' class ='ui blue button' value ='Time out' />
                   </form>
                 </td>
               </tr>
-              {% endfor %}
+              @endforeach
             </tbody>
           </table>
         </div>

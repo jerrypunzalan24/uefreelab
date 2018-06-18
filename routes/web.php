@@ -16,7 +16,8 @@ Route::any('/stepone',"ReserveController@stepone");
 Route::any('/success',"ReserveController@success");
 Route::post('/getschedule',"AjaxController@getschedule");
 Route::any("/login","DashboardController@index");
-Route::group(['prefix'=>'/dashboard', 'middleware' =>'login_required'],function(){
+Route::group(['prefix'=>'/dashboard', 'middleware' =>'login'],function(){
+  Route::get('/logout','DashboardController@logout');
   Route::get('/','DashboardController@insidethelab');
   Route::post('/timeout','DashboardController@timeout');
   Route::get('/allstudents','DashboardController@allstudents');

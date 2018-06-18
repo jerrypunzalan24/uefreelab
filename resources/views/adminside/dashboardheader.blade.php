@@ -1,4 +1,4 @@
-{% include "styles.html" %}
+@include("../styles")
 
 <!--
 University of the East Freelab System
@@ -7,7 +7,7 @@ Developer: Jeremiah F. Punzalan
 -->
 <div id = 'color-overlay'>
 </div>
-{% include "navbar.html" %}
+@include ("navbar")
 {% load static %}
 <div class = 'ui container' style ='padding-top:100px'>
     <div class ='content' style='padding:10px'> 
