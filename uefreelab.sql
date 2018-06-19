@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 18, 2018 at 05:19 PM
+-- Generation Time: Jun 19, 2018 at 04:44 PM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.11
 
@@ -36,6 +36,13 @@ CREATE TABLE `accounts` (
   `password` varchar(255) CHARACTER SET latin1 NOT NULL,
   `role` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_unicode_ci;
+
+--
+-- Dumping data for table `accounts`
+--
+
+INSERT INTO `accounts` (`id`, `firstname`, `lastname`, `username`, `password`, `role`) VALUES
+(1, 'research', 'development', 'rnd', '$2y$12$d1ObGglZBuf/awMaVRYbi.UsvcTJrAXpUEl0fKBRXw9n40cTmOBqe', 0);
 
 -- --------------------------------------------------------
 
@@ -169,17 +176,20 @@ CREATE TABLE `students` (
   `course` varchar(5) COLLATE utf16_unicode_ci NOT NULL,
   `reserved_lab_id` int(11) NOT NULL,
   `terminal_id1` int(11) NOT NULL,
-  `status` int(11) NOT NULL
+  `status` int(11) NOT NULL,
+  `hours` float NOT NULL,
+  `count` int(11) NOT NULL,
+  `time_out` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_unicode_ci;
 
 --
 -- Dumping data for table `students`
 --
 
-INSERT INTO `students` (`student_id`, `studentnumber`, `firstname`, `lastname`, `subject`, `course`, `reserved_lab_id`, `terminal_id1`, `status`) VALUES
-(6, '20150144620', 'jerry', 'punzalan', 'CCP-112', 'BSCS', 1, 1, 0),
-(7, '20150144622', 'gh', 'boi', 'CCS-497', 'BSCS', 1, 2, 0),
-(8, '20160144620', 'maymay', 'boit', 'CCP-132', 'BSCS', 1, 3, 0);
+INSERT INTO `students` (`student_id`, `studentnumber`, `firstname`, `lastname`, `subject`, `course`, `reserved_lab_id`, `terminal_id1`, `status`, `hours`, `count`, `time_out`) VALUES
+(6, '20150144620', 'jerry', 'punzalan', 'CCP-497', 'BSCS', 43, 109, 1, 28.7983, 2, '22:09:32'),
+(7, '20150144622', 'gh', 'boi', 'CCS-497', 'BSCS', 1, 2, 0, 0, 0, '21:27:46'),
+(8, '20160144620', 'maymay', 'boit', 'CCP-132', 'BSCS', 1, 3, 0, 0, 0, '00:00:00');
 
 -- --------------------------------------------------------
 
@@ -421,7 +431,7 @@ ALTER TABLE `terminals`
 -- AUTO_INCREMENT for table `accounts`
 --
 ALTER TABLE `accounts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `labs`
@@ -439,7 +449,7 @@ ALTER TABLE `reserved_lab`
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `terminals`

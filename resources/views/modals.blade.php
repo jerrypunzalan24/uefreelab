@@ -16,8 +16,8 @@
     <div class ='ui tiny modal' id = 'addmodal'>
       <div class ='header'>Add entry</div>
       <div class ='content'>
-        <form method ='POST' class ='ui form'>
-          {% csrf_token %}
+        <form method ='POST' action ='add' class ='ui form'>
+          @csrf
           <div id = 'formcontentadd'></div>
         </div>
         <div class ='actions'>
@@ -28,8 +28,8 @@
     <div class="ui tiny modal" id = 'modal'>
       <div class="header">Edit</div>
       <div class="content">
-        <form method ='POST' class ='ui form'>
-          {% csrf_token %}
+        <form method ='POST' action ='edit' class ='ui form'>
+          @csrf
           <input type ='hidden' name ='id' />
           <div id = 'formcontentedit'>
 
@@ -47,8 +47,8 @@
       </div>
       <div class ='actions'>
         <div class ='two column row'>
-          <form method ='POST'>
-            {% csrf_token %}
+          <form method ='POST' action ='delete'>
+            @csrf
             <input type ='hidden' name ='id' id = 'id'/>
             <input type ='submit' name ='btnDelete' value = 'Yes' class ='ui red button'/>
             <a class ='ui right green button' onclick = "$('#prompt').modal('hide')">No</a>

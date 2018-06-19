@@ -21,6 +21,7 @@ Route::group(['prefix'=>'/dashboard', 'middleware' =>'login'],function(){
   Route::get('/','DashboardController@insidethelab');
   Route::post('/timeout','DashboardController@timeout');
   Route::get('/allstudents','DashboardController@allstudents');
+  Route::get('/allstudents/print','DashboardController@print');
   Route::get('/print','DashboardController@print');
   Route::group(['middleware'=>'admin_only'],function(){
     Route::group(['prefix'=>'/accounts',],function(){
@@ -29,11 +30,13 @@ Route::group(['prefix'=>'/dashboard', 'middleware' =>'login'],function(){
       Route::post('/edit','AccountsController@edit');
       Route::post('/delete','AccountsController@delete');
     });
-    Route::group(['prefix'=>'/labs'],function(){
-      Route::get('/','DashboardController@laboratories');
+    Route::group(['prefix'=>'/labsched'],function(){
+      Route::get('/','DashboardController@labsched');
       Route::post('/add','LaboratoriesController@add');
       Route::post('/edit','LaboratoriesController@edit');
       Route::post('/delete','LaboratoriesController@delete');
+      Route::post('/upload','LaboratoriesController@upload');
+      Route::post('/deleteall','LaboratoriesController@deleteall');
     });
     Route::group(['prefix'=>'/labs'],function(){
       Route::get('/','DashboardController@laboratories');

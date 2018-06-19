@@ -1,12 +1,9 @@
-{% include "adminside/dashboardheader.html" %}
-{% include "adminside/adminsidebar.html" %}
-{% include "modals.html" %}
+@include ("adminside.dashboardheader")
+@include ("adminside.adminsidebar")
+@include ("modals")
 <div class ='ui segment' style ='width:45%'>
   <div class ='header'>
-    <form method = 'POST'>
-      
-      {% csrf_token %}
-    </form>
+    <a href ='allstudents/print' class ='ui green button'><i class ='print icon'></i> Print</a>
     <h5 class ='title' style ='font-weight:500'></h5>
   </div>
   <div class ='content' style =' font-size:0.9em'>
@@ -17,25 +14,29 @@
         <th>Student number</th>
         <th>Full name</th>
         <th>Course</th>
-        <th>Time in</th>
-        <th>Time out</th>
-        <th>Assigned Terminal</th>
+        <th>Last Time in</th>
+        <th>Last Time out</th>
+        <th>Last Assigned Terminal</th>
+        <th>Total Hours</th>
+        <th>Count</th>
       </thead>
       <tbody>
-        {% for result in results %}
+        @foreach($results as $result)
         <tr>
-          <td>{{result.studentnumber }}</td>
-          <td>{{ result.student_firstname }} {{ result.student_lastname }}</td>
-          <td>{{result.course}}</td>
-          <td>{{ result.student_timein}}</td>
-          <td>{{ result.student_timeout }}:00</td>
-          <td>{{result.terminal_name}}</td>
+          <td>{{$result->studentnumber }}</td>
+          <td>{{ $result->firstname }} {{ $result->lastname }}</td>
+          <td>{{$result->course}}</td>
+          <td>{{$result->time_in}}</td>
+          <td>{{$result->student_time_out }}</td>
+          <td>{{$result->name}}</td>
+          <td>{{$result->hours}}</td>
+          <td>{{$result->count}}</td>
         </tr>
-        {% endfor %}
+        @endforeach
       </tbody>
     </table>
   </div>
 </div>
-{% include "../scripts.html" %}
+@include ("../scripts")
 </div>
 </div>

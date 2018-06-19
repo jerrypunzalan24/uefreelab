@@ -30,18 +30,37 @@ class ReserveController extends Controller
         $lab_id = \DB::table('labs')
         ->join('reserved_lab','labs.lab_id','=','reserved_lab.lab_id')
         ->where('reserved_lab.reserved_lab_id',$request->reserved_lab_id)->get();
-        $terminal = \DB::select("SELECT * FROM terminals LEFT JOIN students ON terminals.terminal_id = students.terminal_id1 WHERE students.terminal_id1 is null AND terminals.lab_id = {$lab_id[0]->lab_id}");
+        $terminal = \DB::select("SELECT * FROM terminals
+        LEFT JOIN students ON terminals.terminal_id = students.terminal_id1
+        WHERE students.terminal_id1 is null AND terminals.lab_id = {$lab_id[0]->lab_id}");
         $request->session()->put("terminal", $terminal[0]->name);
-        \DB::table('students')->insertgetId([
-          'studentnumber'   => $request->session()->get('student')['studentnumber'],
-          'firstname'       => $request->session()->get('student')['firstname'],
-          'lastname'        => $request->session()->get('student')['lastname'],
-          'subject'         => $request->session()->get('student')['subject'],
-          'course'          => $request->session()->get('student')['course'],
-          'reserved_lab_id' => $request->reserved_lab_id,
-          'terminal_id1' => $terminal[0]->terminal_id,
-          'status' => '0',
-        ]);
+        $checkifexist = \DB::table('students')->where('studentnumber', $request->session()->get('student')['studentnumber'])->get();
+        if(count($checkifexist)==1){
+          \DB::table('students')->where('studentnumber',$request->session()->get('student')['studentnumber'])
+          ->update([
+            'subject'         => $request->session()->get("student")['subject'],
+            'reserved_lab_id' => $request->reserved_lab_id,
+            'terminal_id1'    => $terminal[0]->terminal_id,
+            'time_out'        => "00:00:00",
+            'status'          => 0,
+            'count'           => \DB::raw("count + 1")
+          ]);
+        }
+        else{
+          \DB::table('students')->insertgetId([
+            'studentnumber'   => $request->session()->get('student')['studentnumber'],
+            'firstname'       => $request->session()->get('student')['firstname'],
+            'lastname'        => $request->session()->get('student')['lastname'],
+            'subject'         => $request->session()->get('student')['subject'],
+            'course'          => $request->session()->get('student')['course'],
+            'reserved_lab_id' => $request->reserved_lab_id,
+            'terminal_id1' => $terminal[0]->terminal_id,
+            'status' => '0',
+            'count' => 1,
+            'hours' => 0.0,
+            'time_out' => "00:00:00",
+          ]);
+        }
         return redirect('/success');
       }
       $results = \DB::table('labs')->get();
