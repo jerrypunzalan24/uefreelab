@@ -103,8 +103,13 @@ class DashboardController extends Controller
     ->join('terminals','terminals.terminal_id','=','students.terminal_id1')->selectRaw('*, reserved_lab.time_out as lab_time_out, students.time_out as student_time_out')
     ->orderBy('student_id','DESC')->get();
     Fpdf::AddPage("P");
+    Fpdf::SetFont("Arial","B",14);
+    Fpdf::Image("./assets/img/rnd-logo.png",95,10,20,20);
+    Fpdf::Ln(25);
+    Fpdf::Cell(0,1,"University of the East Freelab System", 0,0,'C');
+    Fpdf::Ln();
     Fpdf::SetFont("Arial","",14);
-    Fpdf::Cell(0,30,"Report created - " . date("F d, Y g:i A (l)"),0,0,'C');
+    Fpdf::Cell(0,25,"Report created - " . date("F d, Y g:i A (l)"),0,0,'C');
     Fpdf::Ln();
     Fpdf::SetFont("Arial","B",10);
     Fpdf::Cell(45,10,'Fullname',1,0,'C');
