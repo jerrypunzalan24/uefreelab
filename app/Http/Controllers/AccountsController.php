@@ -26,7 +26,7 @@ class AccountsController extends Controller
     }
     else{
       \DB::table('accounts')->where('id',$request->id)->update([
-        'password' => $request->newpass]);
+        'password' => password_hash($request->newpass,PASSWORD_DEFAULT)]);
     }
     return redirect('dashboard/accounts');
   }
