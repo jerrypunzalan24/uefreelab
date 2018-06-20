@@ -42,7 +42,7 @@
       <tr>
         <td><b id = 'timer'>{{ $result->time_in }} - {{ $result->time_out}}</b></td>     
         <td id = 'labname'>{{ $result->lab_name }}</td>
-        <td id = 'status'>{{ $result->status == 0 ? "Available" :"Not available" }} </td>
+        <td id = 'status'>{{ $result->status == 0 ? "Available" :"Not available" }}</td>
         <td id = 'schedule'>{{ $result->schedule }}</td>
         <td><div class ='ui buttons'><button class ='ui blue button editbtn labsched' onclick ="editentry({{$result->reserved_lab_id}}, 'labsched',this)" >Edit</button> <button class ='ui red button' onclick = "deleteentry({{ $result->reserved_lab_id }})">Delete</button>
         </div></td>

@@ -1,4 +1,5 @@
 $(document).ready(function(){
+	$('.dropdown').dropdown()
 	$.ajaxSetup({
 		headers: {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -25,7 +26,7 @@ $(document).ready(function(){
 		}
 		else if($(this).hasClass('lab')){
 			category = 'lab'
-			link = '/filter/filterlab'
+			link = '/dashboard/labsched/filterlab'
 		}
 		$.ajax({
 			type: 'POST',

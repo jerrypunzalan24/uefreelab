@@ -1,6 +1,7 @@
-{% include "adminside/dashboardheader.html" %}
-{% include "adminside/adminsidebar.html" %}
-{% include "modals.html" %}
+@include ("adminside.dashboardheader")
+@include ("adminside.adminsidebar")
+@include ("modals")
+<base href ='/dashboard/accounts/'>
 <div class ='ui segment' style ='width:45%'>
   <div class ='header'>
     <h5 class ='title' style ='font-weight:500'></h5>
@@ -17,24 +18,24 @@
         </tr>
       </thead>
       <tbody>
-        {% for result in results %}
+        @foreach($results as $result)
         <tr>
-          <td id = 'fullname'>{{result.firstname}} {{result.lastname}}</td>
-          <td id = 'username'>{{result.username}}</td>
-          <td id = 'role'>{{result.role}}</td>
+          <td id = 'fullname'>{{$result->firstname}} {{$result->lastname}}</td>
+          <td id = 'username'>{{$result->username}}</td>
+          <td id = 'role'>{{$result->role == 0 ? "Admin" : "Facilitator"}}</td>
           <td>
             <div class ='ui buttons'>
-              <button class ='ui blue button editbtn acc' onclick ="editentry({{result.accounts_id}}, 'acc', this)">Edit</button>
-              <button class ='ui red button' onclick = "deleteentry({{result.accounts_id}})">Delete</button>
+              <button class ='ui blue button editbtn acc' onclick ="editentry({{$result->id}}, 'acc', this)">Edit</button>
+              <button class ='ui red button' onclick = "deleteentry({{$result->id}})">Delete</button>
             </div>
           </td>
         </tr>
-        {% endfor %}
+        @endforeach
       </tbody>
     </table>
 
   </div>
 </div>
-{% include "../scripts.html" %}
+@include ("../scripts")
 </div>
 </div>

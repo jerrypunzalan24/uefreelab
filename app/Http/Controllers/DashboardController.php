@@ -14,6 +14,7 @@ Table of contents
 7. logout
 8. timeout
 */
+use Codedge\Fpdf\Facades\Fpdf;
 class DashboardController extends Controller
 {
   public function index(Request $request){
@@ -52,9 +53,11 @@ class DashboardController extends Controller
       'role'    => $request->session()->get("role")]);
   }
   public function laboratories(Request $request){
+    $results = \DB::table('labs')->orderBy('lab_name','ASC')->get();
     return view('adminside.laboratories',['laboratories'=>true,
       'admin' => true,
-      'role'  => $request->session()->get("role")]);
+      'role'  => $request->session()->get("role"),
+      'results' => $results]);
   }
   public function labsched(Request $request){
     $results = \DB::table('reserved_lab')->join('labs','reserved_lab.lab_id','=','labs.lab_id')->orderByRaw("lab_name ASC, time_in ASC, schedule ASC")->get();
@@ -67,9 +70,12 @@ class DashboardController extends Controller
     ]);
   }
   public function accounts(Request $request){
-    return view('adminside.accounts',['accounts'=>true,
+    $results = \DB::table('accounts')->get();
+    return view('adminside.accounts',[
+      'accounts'=>true,
       'admin' => true,
-      'role'  => $request->session()->get("role")
+      'role'  => $request->session()->get("role"),
+      'results' => $results
     ]);
   }
   public function logout(Request $request){
@@ -90,5 +96,38 @@ class DashboardController extends Controller
       'status' => 1,
       'hours'=> \DB::raw("hours + " . ($timeout - $timein))]);
     return redirect('dashboard');
+  }
+  public function print(Request $request){
+    $results = \DB::table('students')
+    ->join('reserved_lab','reserved_lab.reserved_lab_id','=','students.reserved_lab_id')
+    ->join('terminals','terminals.terminal_id','=','students.terminal_id1')->selectRaw('*, reserved_lab.time_out as lab_time_out, students.time_out as student_time_out')
+    ->orderBy('student_id','DESC')->get();
+    Fpdf::AddPage("P");
+    Fpdf::SetFont("Arial","",14);
+    Fpdf::Cell(0,30,"Report created - " . date("F d, Y g:i A (l)"),0,0,'C');
+    Fpdf::Ln();
+    Fpdf::SetFont("Arial","B",10);
+    Fpdf::Cell(45,10,'Fullname',1,0,'C');
+    Fpdf::Cell(30,10,'Student number',1,0,'C');
+    Fpdf::Cell(18,10, 'Course',1,0,'C');
+    Fpdf::Cell(20,10,'Time in',1,0,'C');
+    Fpdf::Cell(20,10,'Time out',1,0,'C');
+    Fpdf::Cell(20,10,'Terminal',1,0,'C');
+    Fpdf::Cell(20,10,'Hours',1,0,'C');
+    Fpdf::Cell(20,10,'Count',1,0,'C');
+    Fpdf::SetFont("Arial","",10);
+    Fpdf::Ln();
+    foreach($results as $result){
+      Fpdf::Cell(45,10,"{$result->firstname} {$result->lastname}",1,0,'C');
+      Fpdf::Cell(30,10,$result->studentnumber,1,0,'C');
+      Fpdf::Cell(18,10,$result->course,1,0,'C');
+      Fpdf::Cell(20,10,$result->time_in,1,0,'C');
+      Fpdf::Cell(20,10,$result->student_time_out,1,0,'C');
+      Fpdf::Cell(20,10,$result->name, 1,0,'C');
+      Fpdf::Cell(20,10,$result->hours,1,0,'C');
+      Fpdf::Cell(20,10,$result->count,1,0,'C');
+      Fpdf::Ln();
+    }
+    return response(Fpdf::Output(),200)->header("Content-type","application-pdf");
   }
 }

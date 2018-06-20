@@ -82,14 +82,20 @@ function editentry(x, y,z){
     var schedule = $(z).closest('tr').find('#schedule').html()
     var timein   = $(z).closest('tr').find('#timer').html().split(' - ')[0]
     var timeout  = $(z).closest('tr').find('#timer').html().split(' - ')[1]
+    var statusValue = (status == "Available") ? 0 : 1
     $('#formcontentedit').html(`
+      <div class ='two fields'>
       <div class ='field'>
       <label>Status</label>
-      <input type ='text' name ='status' value = '${status}' placeholder = 'Status' />
+      <select class ='ui fluid dropdown' name ='status'>
+      <option value ='0' >Available</option>
+      <option value = '1' >Not available</option>
+      </select>
       </div>
       <div class ='field'>
       <label>Schedule</label>
       <input type ='text' name ='schedule' value = '${schedule}' placeholder = 'Schedule' />
+      </div>
       </div>
       <h4 class ='ui dividing header'>Lab Time</h4>
       <div class = 'two fields'>
@@ -101,7 +107,7 @@ function editentry(x, y,z){
       </div>
       </div>
       `)
-
+    $(`option[value=${statusValue}]`).attr('selected',true)
   }
   else if(id == 'acc'){
     var firstname = $(z).closest('tr').find('#fullname').html().split(' ')[0]
@@ -127,8 +133,8 @@ function editentry(x, y,z){
       <div class ='field'>
       <label>Role</label>
       <select class ='ui dropdown' name ='role'>
-      <option value ='admin'>Admin</option>
-      <option value ='facilitator'>Facilitator</option>
+      <option value ='0'>Admin</option>
+      <option value ='1'>Facilitator</option>
       </select>
       </div>
       </div>
@@ -192,8 +198,8 @@ function editentry(x, y,z){
         <div class ='field'>
         <label>Role</label>
         <select class ='ui dropdown' name ='role'>
-        <option value ='admin'>Admin</option>
-        <option value ='facilitator'>Facilitator</option>
+        <option value ='0'>Admin</option>
+        <option value ='1'>Facilitator</option>
         </select>
         </div>
         </div>
@@ -216,26 +222,29 @@ function editentry(x, y,z){
       $.ajax({
         type:'POST',
         data:{},
-        url: "/dashboard/labsched",
+        url: "/dashboard/labsched/getlabs",
         success: function(html){
           $('#formcontentadd').html(`<div class ='two fields'>
             <div class ='field'>
             <label>Time in</label>
-            <input type ='text' name = 'timein' placeholder = 'Time in'/>
+            <input type ='text' name = 'timein' placeholder = 'Time in' REQUIRED/>
             </div>
             <div class ='field'>
             <label>Time out</label>
-            <input type ='text' name ='timeout' placeholder = 'Time out'/>
+            <input type ='text' name ='timeout' placeholder = 'Time out' REQUIRED/>
             </div>
             </div>
             <div class = 'two fields'>
             <div class ='field'>
             <label>Status</label>
-            <input type ='text' name ='status' placeholder = 'Status'/>
+            <select class ='ui dropdown' name ='status'>
+            <option value ='0'>Available</option>
+            <option value ='1'>Not available</option>
+            </select>
             </div>
             <div class = 'field'>
             <label>Schedule</label>
-            <input type ='text' name ='schedule' placeholder ='Schedule'/>
+            <input type ='text' name ='schedule' placeholder ='Schedule' REQUIRED/>
             </div>
             </div>
             <div class ='field'>
@@ -246,6 +255,9 @@ function editentry(x, y,z){
             </div>
             `)
           $('#addmodal').modal('show')
+        },
+        error:function(html){
+          console.log(html)
         }
       })
     }

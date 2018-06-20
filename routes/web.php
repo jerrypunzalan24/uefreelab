@@ -32,13 +32,15 @@ Route::group(['prefix'=>'/dashboard', 'middleware' =>'login'],function(){
     });
     Route::group(['prefix'=>'/labsched'],function(){
       Route::get('/','DashboardController@labsched');
-      Route::post('/add','LaboratoriesController@add');
-      Route::post('/edit','LaboratoriesController@edit');
-      Route::post('/delete','LaboratoriesController@delete');
-      Route::post('/upload','LaboratoriesController@upload');
-      Route::post('/deleteall','LaboratoriesController@deleteall');
+      Route::post('/add','LabschedController@add');
+      Route::post('/edit','LabschedController@edit');
+      Route::post('/delete','LabschedController@delete');
+      Route::post('/upload','LabschedController@upload');
+      Route::post('/deleteall','LabschedController@deleteall');
+      Route::post('/filterlab','LabschedController@filterlab');
+      Route::post('/getlabs','LabschedController@getlabs');
     });
-    Route::group(['prefix'=>'/labs'],function(){
+    Route::group(['prefix'=>'/laboratories'],function(){
       Route::get('/','DashboardController@laboratories');
       Route::post('/add','LaboratoriesController@add');
       Route::post('/edit','LaboratoriesController@edit');
