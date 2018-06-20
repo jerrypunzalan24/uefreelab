@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 19, 2018 at 04:44 PM
+-- Generation Time: Jun 20, 2018 at 04:57 AM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.11
 
@@ -42,7 +42,8 @@ CREATE TABLE `accounts` (
 --
 
 INSERT INTO `accounts` (`id`, `firstname`, `lastname`, `username`, `password`, `role`) VALUES
-(1, 'research', 'development', 'rnd', '$2y$12$d1ObGglZBuf/awMaVRYbi.UsvcTJrAXpUEl0fKBRXw9n40cTmOBqe', 0);
+(1, 'research', 'development', 'rnd', '$2y$12$d1ObGglZBuf/awMaVRYbi.UsvcTJrAXpUEl0fKBRXw9n40cTmOBqe', 0),
+(2, 'meme', 'boi', 'memeboi', '$2y$10$Lxzzke77/uwdFVBcunDSD.cwduVLq.5Hv8AsX6ki02vqW3B.I4gwS', 1);
 
 -- --------------------------------------------------------
 
@@ -93,7 +94,6 @@ INSERT INTO `reserved_lab` (`reserved_lab_id`, `lab_id`, `time_in`, `time_out`, 
 (4, 1, '08:30:00', '09:30:00', 1, 'MWF\r'),
 (5, 1, '10:30:00', '16:00:00', 1, 'MWF\r'),
 (6, 1, '07:30:00', '09:00:00', 0, 'TTH\r'),
-(7, 1, '09:00:00', '10:30:00', 0, 'TTH\r'),
 (8, 1, '10:30:00', '12:00:00', 1, 'TTH\r'),
 (9, 1, '12:00:00', '13:30:00', 0, 'TTH\r'),
 (10, 1, '13:30:00', '15:00:00', 1, 'TTH\r'),
@@ -115,7 +115,7 @@ INSERT INTO `reserved_lab` (`reserved_lab_id`, `lab_id`, `time_in`, `time_out`, 
 (26, 2, '15:00:00', '16:30:00', 1, 'TTH\r'),
 (27, 2, '16:30:00', '18:00:00', 0, 'TTH\r'),
 (28, 2, '18:00:00', '19:30:00', 0, 'TTH\r'),
-(29, 3, '07:30:00', '09:30:00', 0, 'MWF\r'),
+(29, 3, '07:30:00', '09:30:00', 0, 'TTH'),
 (30, 3, '08:30:00', '09:30:00', 0, 'MWF\r'),
 (31, 3, '09:30:00', '10:30:00', 0, 'MWF\r'),
 (32, 3, '10:30:00', '11:30:00', 0, 'MWF\r'),
@@ -159,7 +159,9 @@ INSERT INTO `reserved_lab` (`reserved_lab_id`, `lab_id`, `time_in`, `time_out`, 
 (70, 5, '13:30:00', '15:00:00', 0, 'TTH\r'),
 (71, 5, '15:00:00', '16:30:00', 1, 'TTH\r'),
 (72, 5, '16:30:00', '18:00:00', 0, 'TTH\r'),
-(73, 5, '18:00:00', '19:30:00', 0, 'TTH');
+(73, 5, '18:00:00', '19:30:00', 0, 'TTH'),
+(74, 1, '07:30:00', '10:30:00', 0, 'TTH'),
+(75, 3, '07:30:00', '10:30:00', 1, 'TTH');
 
 -- --------------------------------------------------------
 
@@ -187,9 +189,7 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`student_id`, `studentnumber`, `firstname`, `lastname`, `subject`, `course`, `reserved_lab_id`, `terminal_id1`, `status`, `hours`, `count`, `time_out`) VALUES
-(6, '20150144620', 'jerry', 'punzalan', 'CCP-497', 'BSCS', 43, 109, 1, 28.7983, 2, '22:09:32'),
-(7, '20150144622', 'gh', 'boi', 'CCS-497', 'BSCS', 1, 2, 0, 0, 0, '21:27:46'),
-(8, '20160144620', 'maymay', 'boit', 'CCP-132', 'BSCS', 1, 3, 0, 0, 0, '00:00:00');
+(6, '20150144620', 'jerry', 'punzalan', 'CCP-497', 'BSCS', 43, 109, 1, 28.7983, 2, '22:09:32');
 
 -- --------------------------------------------------------
 
@@ -431,19 +431,19 @@ ALTER TABLE `terminals`
 -- AUTO_INCREMENT for table `accounts`
 --
 ALTER TABLE `accounts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `labs`
 --
 ALTER TABLE `labs`
-  MODIFY `lab_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `lab_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `reserved_lab`
 --
 ALTER TABLE `reserved_lab`
-  MODIFY `reserved_lab_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+  MODIFY `reserved_lab_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- AUTO_INCREMENT for table `students`
