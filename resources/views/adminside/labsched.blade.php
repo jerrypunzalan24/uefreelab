@@ -13,7 +13,7 @@
     <a class ='ui red button' onclick ="$('#deletemodal').modal('show')">Delete all</a>
     <input name ='deletebtn' class ='ui red button' type ='hidden' style ='margin-bottom:10px' value ='Delete all'>
   </form>
-  <form method = 'POST' id ='fileupload' style ='display:inline-block'>
+  <form method = 'POST' action ='upload' id ='fileupload' style ='display:inline-block'>
     @csrf
     <div style ='overflow:hidden;position:relative;'>
       <a class ='ui icon green button'>
@@ -55,3 +55,8 @@
 @include ("../scripts")
 </div>
 </div>
+<script>
+  $('#fileupload').change(function(){
+    $('#fileupload').submit()
+  })
+</script>
