@@ -76,6 +76,15 @@ function editentry(x, y,z){
       </div>
       `)
   }
+  else if(id =='terminal'){
+    var ipaddress = $(z).closest('tr').find('#ipAddress').html()
+    $('#formcontentedit').html(`
+      <div class ='field'>
+      <input type ='text' name ='ipAdd' value ='${ipaddress}' placeholder ='IP Address'>
+      </div>
+      `)
+  }
+
   else if(id =='labsched'){
     var labname  = $(z).closest('tr').find('#labname').html()
     var status   = $(z).closest('tr').find('#status').html()

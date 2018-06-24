@@ -13,6 +13,7 @@ Table of contents
 6. accounts
 7. logout
 8. timeout
+9. terminals
 */
 use Codedge\Fpdf\Facades\Fpdf;
 class DashboardController extends Controller
@@ -90,11 +91,12 @@ class DashboardController extends Controller
     $student = \DB::table('students')->join('reserved_lab','students.reserved_lab_id','=','reserved_lab.reserved_lab_id')
     ->whereRaw("students.student_id = {$request->id} AND students.status = 0")->get();
     $timein = strtotime($student[0]->time_in)/(60*60);
-    $timeout = strtotime(date("G:i:s"))/(60*60);
+    $timeout = strtotime(date("H:i:s"))/(60*60);
     \DB::table('students')->where('studentnumber',$request->studentnumber)->update([
       'time_out'=> date("G:i:s"),
       'status' => 1,
-      'hours'=> \DB::raw("hours + " . ($timeout - $timein))]);
+      'hours'=> \DB::raw("hours + " . ($timeout - $timein)),
+      'active'=> 1]);
     return redirect('dashboard');
   }
   public function print(Request $request){
@@ -134,5 +136,12 @@ class DashboardController extends Controller
       Fpdf::Ln();
     }
     return response(Fpdf::Output(),200)->header("Content-type","application-pdf");
+  }
+  public function terminals(Request $request){
+    $results = \DB::table('terminals')->orderByRaw('name ASC')->get();
+    return view('adminside.terminal', ['results' => $results,
+      'admin'=>true,
+      'role'=> $request->session()->get('role'),
+      'terminals' => true]);
   }
 }

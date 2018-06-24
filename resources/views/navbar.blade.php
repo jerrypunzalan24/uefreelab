@@ -6,7 +6,7 @@
 
 	<div class ='right menu'>
 		@if (isset($navbar))
-		<a class ='ui item' href = '/index/'>Home</a>
+		<a class ='ui item' href = '/'>Home</a>
 		@elseif (isset($home))
 		<a class ='ui item' href ='/login'><i class ='user icon'></i>Admin</a>
 		@elseif (isset($role))

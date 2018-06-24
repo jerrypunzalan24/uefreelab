@@ -1,6 +1,7 @@
 @include("adminside.dashboardheader")
 @include ("adminside.adminsidebar")
 @include("modals")
+<base href = '/dashboard/'>
       <div class ='ui segment' style ='width:45%'>
         <div class ='header'>
           <h5 class ='title' style ='font-weight:500'></h5>
@@ -13,10 +14,11 @@
               <tr>
                 <th>Student number</th>
                 <th>Full name</th>
+                <th>Status</th>
                 <th>Subject</th>
-                <th>Course</th>
+                <th style ='width:80px'>Course</th>
                 <th>Time in</th>
-                <th>Assigned Terminal</th>
+                <th style ='width:80px'>Assigned Terminal</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -25,12 +27,13 @@
               <tr>
                 <td>{{ $result->studentnumber }}</td>
                 <td>{{ $result->firstname }} {{ $result->lastname }}</td>
+                <td>{{$result->active == 0 ? "Active" : "Inactive"}}</td>
                 <td>{{$result->subject}}</td>
                 <td>{{$result->course}}</td>
                 <td>{{ $result->time_in }}</td>
                 <td>{{ $result->name }} </td>
                 <td>
-                  <form method ='post' action = 'dashboard/timeout' style ='margin-bottom:0px'>
+                  <form method ='post' action = 'timeout' style ='margin-bottom:0px'>
                     @csrf
                     <input type ='hidden' name ='id' value ='{{$result->student_id}}'/>
                     <input type ='hidden' name ='studentnumber' value = '{{$result->studentnumber}}'>

@@ -14,7 +14,7 @@ Lead developer: Jeremiah F. Punzalan
 		<div class ='eight wide column' style ='width:100%;padding-right:0px' >
 			<div class ='ui card' style ='background-color:rgba(0,0,0,0.5); border-color: #686116; color:#CAC0A7; width:80%;margin:auto;border-radius:0;margin-right:0px;' onload = 'sameheight()'id ='leftdesc'>
 				<div class ='content' style ='margin-top:50px'>
-					<h1 style ='font-size:2.5em'>University of the East</h1>
+					<h1 style ='font-size:2.5em'>University of the East </h1>
 					<h2 style ='margin-top:0px'>Free lab system</h2>
 					<p style ='text-align:justify;padding-top:30px;bottom:20%;position:absolute' >Developed by UE CCSS R&D	</p>
 				</div>

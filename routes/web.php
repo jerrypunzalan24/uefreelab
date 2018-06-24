@@ -46,5 +46,11 @@ Route::group(['prefix'=>'/dashboard', 'middleware' =>'login'],function(){
       Route::post('/edit','LaboratoriesController@edit');
       Route::post('/delete','LaboratoriesController@delete');
     });
+    Route::group(['prefix' =>'/terminal'], function(){
+      Route::get('/','DashboardController@terminals');
+      Route::post('/add', 'TerminalController@add');
+      Route::post('/edit','TerminalController@edit');
+      Route::post('/delete','TerminalController@delete');
+    });
   });
 });

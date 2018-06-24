@@ -8,6 +8,14 @@
   </div>
   <div class ='content' style =' font-size:0.9em'>
     <button class = 'ui blue button addbtn' id = 'acc' style ='margin-bottom:10px'>Add</button><br/>
+    
+  @if(session('success')!==null)
+  <div class ='ui blue message'>
+    <i class ='close icon'></i>
+    <div class ='header'>Success</div>
+    {{session('success')}}
+  </div>
+  @endif
     <table class ='ui fixed celled striped table'>
       <thead>
         <tr>

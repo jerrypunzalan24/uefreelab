@@ -35,5 +35,12 @@
             @endif
                 <a class='subitem' value ='3' href ='/dashboard/accounts'>Accounts</a>
               </div>
+            @if(isset($terminals))
+              <div class ='ui blue inverted segment headitem'>
+            @else
+              <div class ='ui segment headitem'>
+            @endif
+                <a class='subitem' value ='3' href ='/dashboard/terminal'>Terminals</a>
+              </div>
           @endif
             </div>

@@ -1,7 +1,7 @@
 @include ("adminside.dashboardheader")
 @include ("adminside.adminsidebar")
 @include ("modals")
-<base href ='/dashboard/laboratories/'>
+<base href ='/dashboard/terminal/'>
 <div class ='ui segment' style ='width:45%'>
   <div class ='header'>
     <h5 class ='title' style ='font-weight:500'></h5>
@@ -18,18 +18,18 @@
     <table class ='ui fixed celled striped table'>
       <thead>
         <tr>
-          <th>Lab name</th>
-          <th>Capacity</th>
+          <th>Terminal Name</th>
+          <th>IP Address</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
         @foreach($results as $result)
         <tr>
-          <td><b id ='labname'>{{$result->lab_name}}</b></td>
-          <td id = 'capacity'>{{$result->lab_capacity}}</td>
+          <td><b id =''>{{$result->name}}</b></td>
+          <td id = 'ipAddress'>{{$result->ip}}</td>
           <td><div class ='ui buttons'>
-            <button class ='ui blue button editbtn lab' onclick = "editentry({{$result->lab_id}},'lab',this)">Edit</button>
+            <button class ='ui blue button editbtn lab' onclick = "editentry({{$result->lab_id}},'terminal',this)">Edit</button>
             <button class ='ui red button' onclick = "deleteentry({{ $result->lab_id }})">Delete</button>
           </div></td>
         </tr>

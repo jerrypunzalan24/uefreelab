@@ -11,7 +11,7 @@ class AjaxController extends Controller
     $sched = \DB::select("SELECT *, (
       SELECT COUNT(*)
       FROM students 
-      WHERE students.reserved_lab_id = reserved_lab.reserved_lab_id
+      WHERE students.reserved_lab_id = reserved_lab.reserved_lab_id AND students.status = 0
     ) AS reserve_count FROM reserved_lab 
       JOIN labs ON labs.lab_id = reserved_lab.lab_id WHERE reserved_lab.lab_id = {$request->lab_id} AND reserved_lab.schedule LIKE '%{$day}%'");
     return $sched;

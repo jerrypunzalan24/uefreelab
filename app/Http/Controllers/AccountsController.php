@@ -12,8 +12,9 @@ class AccountsController extends Controller
       'lastname'  => $request->lastname,
       'username'  => $request->username,
       'password'  => password_hash($request->password,PASSWORD_DEFAULT),
-      'role'      => $request->role]);
-    return redirect('dashboard/accounts');
+      'role'      => $request->role
+    ]);
+    return redirect('dashboard/accounts')->with('success','Entry has been added');
   }
   public function edit(Request $request){
     if($request->newpassword == "" && $request->oldpassword == ""){
@@ -28,10 +29,10 @@ class AccountsController extends Controller
       \DB::table('accounts')->where('id',$request->id)->update([
         'password' => password_hash($request->newpass,PASSWORD_DEFAULT)]);
     }
-    return redirect('dashboard/accounts');
+    return redirect('dashboard/accounts')->with('success','Edit success');
   }
   public function delete(Request $request){
     \DB::table('accounts')->where('id',$request->id)->delete();
-    return redirect('dashboard/accounts');
+    return redirect('dashboard/accounts')->with('success','Entry has been deleted');
   }
 }
