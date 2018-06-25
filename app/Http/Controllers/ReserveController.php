@@ -8,7 +8,8 @@ class ReserveController extends Controller
   public function login(Request $request){
     $request->session()->forget('terminal');
     $request->session()->forget('student');
-    $hostip = substr($request->server("HTTP_HOST"), 0,15);
+    $hostip = substr($request->server("HTTP_HOST"), 0,strrpos($request->server("HTTP_HOST"), ":"));
+    echo $hostip;
     if($request->ip() === $hostip){
       if($request->has('btnSubmit')){
         $check = \DB::table('students')->whereRaw("studentnumber = '{$request->studentnumber}' AND status = 0")->get();
