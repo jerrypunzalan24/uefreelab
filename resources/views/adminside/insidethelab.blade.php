@@ -33,12 +33,9 @@
                 <td>{{ $result->time_in }}</td>
                 <td>{{ $result->name }} </td>
                 <td>
-                  <form method ='post' action = 'timeout' style ='margin-bottom:0px'>
-                    @csrf
                     <input type ='hidden' name ='id' value ='{{$result->student_id}}'/>
                     <input type ='hidden' name ='studentnumber' value = '{{$result->studentnumber}}'>
-                    <input type ='submit' name ='timeout' class ='ui blue button' value ='Time out' />
-                  </form>
+                    <a href = '#' class ='ui blue button timeout' style ='padding:10px' >Time out</a>
                 </td>
               </tr>
               @endforeach
@@ -49,3 +46,14 @@
 @include ("../scripts")
 </div>
 </div>
+<script>
+  $(document).ready(function(){
+    $('.timeout').click(function(e){
+      var id = $(this).closest('tr').find('input[name=id]').val()
+      var studentnumber = $(this).closest('tr').find('input[name=studentnumber]').val()
+      $('input[name=id1]').val(id)
+      $('input[name=studentnumber1]').val(studentnumber)
+      $('#timeout').modal('show')
+    })
+  })
+</script>

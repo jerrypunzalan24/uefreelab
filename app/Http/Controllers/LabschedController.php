@@ -56,9 +56,6 @@ class LabschedController extends Controller
         $room = explode(" ", $dataArray[$i][7])[1];
       }
       if(!empty(trim($dataArray[$i][7])) && array_key_exists($room, $labArray)){
-
-        print_r($dataArray[$i])  . "<br/><br/>";
-        echo "<br/>Time:in {$timein}<br/> Time out: {$timeout}<br/>Room: " . $room . "<br/>Description: {$description}<br/>Days: {$days}";
         \DB::table('reserved_lab')->insertgetId([
           'time_in'=> $timein,
           'time_out' => $timeout,
@@ -85,7 +82,10 @@ class LabschedController extends Controller
   }
   public function filterlab(Request $request){
     $response_html = '';
-    $results = \DB::table('reserved_lab')->join('labs','labs.lab_id','=','reserved_lab.lab_id')->where('labs.lab_name',$request->value)->get();
+    $results = \DB::table('reserved_lab')
+    ->join('labs','labs.lab_id','=','reserved_lab.lab_id')
+    ->where('labs.lab_name',$request->value)
+    ->orderByRaw("reserved_lab.time_in ASC")->get();
     foreach($results as $result){
       $status = $result->status == 0 ? "Available" : "Not available" ;
       $response_html .= "<tr>

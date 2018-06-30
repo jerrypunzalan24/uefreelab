@@ -10,7 +10,7 @@ class ReserveController extends Controller
     $request->session()->forget('student');
     $hostip = substr($request->server("HTTP_HOST"), 0,strrpos($request->server("HTTP_HOST"), ":"));
     echo $hostip;
-    if($request->ip() === $hostip){
+    if($request->ip() === $hostip || $request->ip() === "127.0.0.1"){
       if($request->has('btnSubmit')){
         $check = \DB::table('students')->whereRaw("studentnumber = '{$request->studentnumber}' AND status = 0")->get();
         if(count($check)==0){
@@ -28,14 +28,16 @@ class ReserveController extends Controller
     }
     $checkterminal = \DB::table('terminals')->where("ip", $request->ip())->get();
     if(count($checkterminal) == 0){
-        return view('error',['message' => 'This device is not registered in this system.']);
+      return view('error',['message' => 'This device is not registered in this system.']);
     }
     if($request->has('verify')){
       $getterminal= \DB::table('students')->where('studentnumber',$request->studentnumber)->selectRaw("*, terminal_id1 AS terminal_id")->get();
+      if(count($getterminal) == 0)
+        return redirect('/')->with('error', 'Student number not registered or not found');
       $check = \DB::table('terminal')->where('terminal_id', $getterminal[0]->terminal_id);
       if(count($check) != 0){
         \DB::table('students')->whereRaw("studentnumber = '{$request->studentnumber}'")->update(['active'=>0]);
-        return redirect('/')->with('message', "Success! Enjoy using this terminal");
+        return redirect('/')->with('message', "Success! Enjoy using this terminal")->with('show',false);
       }
       else{
         return redirect('/')->with('error',"Your assigned terminal is {$getterminal->terminal_name}");
@@ -49,9 +51,7 @@ class ReserveController extends Controller
         $lab_id = \DB::table('labs')
         ->join('reserved_lab','labs.lab_id','=','reserved_lab.lab_id')
         ->where('reserved_lab.reserved_lab_id',$request->reserved_lab_id)->get();
-        $terminal = \DB::select("SELECT * FROM terminals
-          LEFT JOIN students ON terminals.terminal_id = students.terminal_id1
-          WHERE students.terminal_id1 is null AND terminals.lab_id = {$lab_id[0]->lab_id} OR students.count > 1 ORDER BY terminal_id ASC");
+        $terminal = \DB::table('terminals')->where('terminal_id', $request->terminal)->get();
         $request->session()->put("terminal", $terminal[0]->name);
         $checkifexist = \DB::table('students')->where('studentnumber', $request->session()->get('student')['studentnumber'])->get();
         if(count($checkifexist)==1){
@@ -59,7 +59,7 @@ class ReserveController extends Controller
           ->update([
             'subject'         => $request->session()->get("student")['subject'],
             'reserved_lab_id' => $request->reserved_lab_id,
-            'terminal_id1'    => $terminal[0]->terminal_id,
+            'terminal_id1'    => $request->terminal,
             'time_out'        => "00:00:00",
             'status'          => 0,
             'count'           => \DB::raw("count + 1"),
@@ -74,8 +74,8 @@ class ReserveController extends Controller
             'subject'         => $request->session()->get('student')['subject'],
             'course'          => $request->session()->get('student')['course'],
             'reserved_lab_id' => $request->reserved_lab_id,
-            'terminal_id1' => $terminal[0]->terminal_id,
-            'status' => '0',
+            'terminal_id1' => $request->terminal,
+            'status' => 0,
             'count' => 1,
             'hours' => 0.0,
             'time_out' => "00:00:00",
@@ -91,10 +91,13 @@ class ReserveController extends Controller
     return redirect("/");
   }
   public function success(Request $request){
-    $terminal = $request->session()->get('terminal');
-    $request->session()->forget('terminal');
-    $request->session()->forget('student');
-    return view('success',['terminal'=>$terminal]);
+    if($request->session()->has('student')){
+      $terminal = $request->session()->get('terminal');
+      $request->session()->forget('terminal');
+      $request->session()->forget('student');
+      return view('success',['terminal'=>$terminal]);
+    }
+    return redirect('/');
   }
   public function back(){
     $request->session()->forget('student');

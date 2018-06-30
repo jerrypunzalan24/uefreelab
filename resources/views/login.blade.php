@@ -12,16 +12,16 @@ Lead developer: Jeremiah F. Punzalan
 <div class ='ui container' style='padding-top:100px'>
 	<div class ='ui grid' style ='display:none'>
 		<div class ='eight wide column' style ='width:100%;padding-right:0px' >
-			<div class ='ui card' style ='background-color:rgba(0,0,0,0.5); border-color: #686116; color:#CAC0A7; width:80%;margin:auto;border-radius:0;margin-right:0px;' onload = 'sameheight()'id ='leftdesc'>
+			<div class ='ui card' style ='background-color:rgba(0,0,0,0.5); border-color: #686116; color:#CAC0A7; width:100%;margin:auto;border-radius:0;margin-right:0px;' onload = 'sameheight()'id ='leftdesc'>
 				<div class ='content' style ='margin-top:50px'>
-					<h1 style ='font-size:2.5em'>University of the East </h1>
-					<h2 style ='margin-top:0px'>Free lab system</h2>
-					<p style ='text-align:justify;padding-top:30px;bottom:20%;position:absolute' >Developed by UE CCSS R&D	</p>
+					<h1 style ='font-size:2.5em'>UNIVERSITY OF THE EAST</h1>
+					<h2 style ='margin-top:0px'>FREE LAB SYSTEM</h2>
+					<p style ='text-align:justify;padding-top:30px;bottom:20%;position:absolute' >DEVELOPED BY UE CCSS R&D</p>
 				</div>
 			</div>
 		</div>
-		<div class ='eight wide column' style ='padding-left:0px'>
-			<div class ='ui card' style ='opacity:0.90; width:80%;margin:auto;margin-left:0px;' id = 'rightdesc'>
+		<div class ='eight wide column' style ='padding-left:0px;border-radius:0px'>
+			<div class ='ui card' style ='opacity:0.90; width:80%;margin:auto;margin-left:0px;border-radius:0px' id = 'rightdesc'>
 				<div class="content" style ='background-color: #EDEDED'>
 					<div class="header">Student Information</div>
 				</div>
@@ -29,7 +29,7 @@ Lead developer: Jeremiah F. Punzalan
 					@if (session('error')!==null)
 					<div class="ui error message" style ='font-size:0.9em'>
 						<i class ='close icon'></i>
-						<div class="header" >Error</div> Student {{session('error')}} is already inside the lab
+						<div class="header" >Error</div> Student {{session('error')}} is already scheduled
 					</div>
 					@endif
 					<form method ='post' class ='ui large form'>
@@ -48,7 +48,7 @@ Lead developer: Jeremiah F. Punzalan
 						</div>
 						<div class ='field' style ='padding-right:0px'>
 							<label>Student number</label>
-							<input type ='number'  name ='studentnumber' placeholder = 'Student number'/>
+							<input type ='number' class ='quantity'  name ='studentnumber' placeholder = 'Student number'/>
 							<p id = 'error'style ='color:red'></p>
 						</div>
 						<div class ='two fields'>

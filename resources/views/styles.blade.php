@@ -8,6 +8,11 @@
   <link rel ='stylesheet' href = "{{ asset('assets/css/jquery.datetimepicker.min.css'  )}}"/>
   <link rel ='stylesheet' href = "{{ asset('assets/css/jquery.datetimepicker.css'  )}}"/>
 <style>
+.quantity::-webkit-inner-spin-button, 
+.quantity::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
 body{
 	font-size:1.20em;
 	text-rendering: optimizeLegibility;

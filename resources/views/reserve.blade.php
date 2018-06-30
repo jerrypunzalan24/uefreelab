@@ -62,23 +62,38 @@
 						var color = (e['status']==0)? "positive":"negative"
 						var disabled = (e['status']==0)?"" :"disabled"
 						if(e['lab_capacity'] - e['reserve_count'] > 0){
-							$('tbody').append(`<tr class ='${color}'>
-								<td>${e['time_in']}</td>
-								<td>${e['time_out']}</td>
-								<td>${status}</td>
-								<td>${e['schedule']}</td>
-								<td>${e['lab_capacity'] - e['reserve_count']}</td>
-								<td><form method ='post'>
-								<input type ='hidden' name ='_token' value = '${$('meta[name=csrf-token]').attr('content')}'
-								<input type ='hidden' name ='lab_id' value = '${e['lab_id']}'>
-								<input type ='hidden' name ='reserved_lab_id' value ='${e['reserved_lab_id']}'>
-								<input type ='hidden' name = 'timein' value = '${e['time_in']}'>
-								<input type ='hidden' name = 'timeout' value = '${e['time_out']}'>
-								<button type ='submit' ${disabled} name ='submit' class ='ui primary button'>Occupy</button>
-								</form></td>
-								</tr>`)
+							$.ajax({
+								type:"POST",
+								url:"/getterminals",
+								data:{id: e['lab_id']},
+								success:function(html){
+									$('tbody').append(`
+										<tr class ='${color}'>
+										<td>${e['time_in']}</td>
+										<td>${e['time_out']}</td>
+										<td>${status}</td>
+										<td>${e['schedule']}</td>
+										<td>${e['lab_capacity'] - e['reserve_count']}</td>
+										<td class ='center aligned'><form method ='post'>
+										<select class ='ui dropdown' style ='margin-right:10px'name ='terminal'>
+										${html}
+										</select>	
+										<input type ='hidden' name ='_token' value = '${$('meta[name=csrf-token]').attr('content')}'
+										<input type ='hidden' name ='lab_id' value = '${e['lab_id']}'>
+										<input type ='hidden' name ='reserved_lab_id' value ='${e['reserved_lab_id']}'>
+										<input type ='hidden' name = 'timein' value = '${e['time_in']}'>
+										<input type ='hidden' name = 'timeout' value = '${e['time_out']}'>
+										<button type ='submit' ${disabled} name ='submit' class ='ui primary button'>Occupy</button>
+										</form></td>
+										</tr>`)
+								},
+								error:function(html){
+									console.log(html)
+								}
+							})
 						}
-					})
+					
+				})
 					$('#roomsModal').modal('show');
 					$('.modal-title').html(`Assigned schedule for ${labname}`)
 				},

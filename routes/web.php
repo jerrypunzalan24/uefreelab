@@ -15,6 +15,8 @@ Route::any('/', "ReserveController@login");
 Route::any('/stepone',"ReserveController@stepone");
 Route::any('/success',"ReserveController@success");
 Route::post('/getschedule',"AjaxController@getschedule");
+Route::post('/getterminals', "AjaxController@getterminals");
+Route::post('/filterterminal', "AjaxController@filterterminal");
 Route::any("/login","DashboardController@index");
 Route::group(['prefix'=>'/dashboard', 'middleware' =>'login'],function(){
   Route::get('/logout','DashboardController@logout');

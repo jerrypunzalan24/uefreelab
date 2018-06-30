@@ -87,12 +87,12 @@ class DashboardController extends Controller
   }
   public function timeout(Request $request){
     $checkifexist = \DB::table('students')
-    ->whereRaw("studentnumber = {$request->studentnumber} AND status = 1")->get();
+    ->whereRaw("studentnumber = {$request->studentnumber1} AND status = 1")->get();
     $student = \DB::table('students')->join('reserved_lab','students.reserved_lab_id','=','reserved_lab.reserved_lab_id')
-    ->whereRaw("students.student_id = {$request->id} AND students.status = 0")->get();
+    ->whereRaw("students.student_id = {$request->id1} AND students.status = 0")->get();
     $timein = strtotime($student[0]->time_in)/(60*60);
     $timeout = strtotime(date("H:i:s"))/(60*60);
-    \DB::table('students')->where('studentnumber',$request->studentnumber)->update([
+    \DB::table('students')->where('studentnumber',$request->studentnumber1)->update([
       'time_out'=> date("G:i:s"),
       'status' => 1,
       'hours'=> \DB::raw("hours + " . ($timeout - $timein)),
@@ -138,10 +138,12 @@ class DashboardController extends Controller
     return response(Fpdf::Output(),200)->header("Content-type","application-pdf");
   }
   public function terminals(Request $request){
+    $buttons =\DB::table('labs')->orderByRaw('lab_id ASC')->get();
     $results = \DB::table('terminals')->orderByRaw('name ASC')->get();
     return view('adminside.terminal', ['results' => $results,
       'admin'=>true,
       'role'=> $request->session()->get('role'),
+      'buttons' => $buttons,
       'terminals' => true]);
   }
 }
