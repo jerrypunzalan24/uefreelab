@@ -6,11 +6,11 @@
 
 	<div class ='right menu'>
 		@if (isset($navbar))
-		<a class ='ui item' href = '/'>Home</a>
+		<a class ='ui item' href = '/uefreelab/public/'>Home</a>
 		@elseif (isset($home))
 		<a class ='ui item' href ='login'><i class ='user icon'></i>Admin</a>
 		@elseif (isset($role))
-		<a class ='ui item' href = 'dashboard/logout'>Logout</a>
+		<a class ='ui item' href = '/uefreelab/public/dashboard/logout'>Logout</a>
 		@endif
 	</div>
 
