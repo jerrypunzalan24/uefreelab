@@ -77,7 +77,7 @@
       </div>
       <div class ='field'>
         <label>Start IP</label>
-        <input type ='text' name ='startip' REQUIRED placeholder = 'e.g. 192.168.254.100' maxlength="15">
+        <input type ='text' name ='startip' REQUIRED placeholder = 'e.g. 192.168.254.100' maxlength ="15">
       </div>
     </div>
     <div class ='actions'>
