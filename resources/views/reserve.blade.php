@@ -49,7 +49,7 @@
 			});
 			var labname = $(this).closest('div.content').find('#labname').html()
 			$.ajax({
-				url: '/getschedule',
+				url: '/uefreelab/public/getschedule',
 				type:'POST',
 				data:{
 					lab_id: $(this).attr('value')
@@ -64,7 +64,7 @@
 						if(e['lab_capacity'] - e['reserve_count'] > 0){
 							$.ajax({
 								type:"POST",
-								url:"/getterminals",
+								url:"/uefreelab/public/getterminals",
 								data:{id: e['lab_id']},
 								success:function(html){
 									$('tbody').append(`
