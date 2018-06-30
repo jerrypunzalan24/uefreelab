@@ -14,7 +14,7 @@
     {{session('success')}}
   </div>
   @endif
-    <button class ='ui blue button addbtn' id = 'laboratories' style ='margin-bottom:10px'>Add</button><br/>
+    <button class ='ui blue button addbtn' id = 'laboratories' style ='margin-bottom:10px'><i class ='ui plus icon'></i>Add</button><br/>
     <table class ='ui fixed celled striped table'>
       <thead>
         <tr>
@@ -28,9 +28,9 @@
         <tr>
           <td><b id ='labname'>{{$result->lab_name}}</b></td>
           <td id = 'capacity'>{{$result->lab_capacity}}</td>
-          <td><div class ='ui buttons'>
-            <button class ='ui blue button editbtn lab' onclick = "editentry({{$result->lab_id}},'lab',this)">Edit</button>
-            <button class ='ui red button' onclick = "deleteentry({{ $result->lab_id }})">Delete</button>
+          <td><div class ='ui buttons' style ='width:100%'>
+            <button class ='ui blue button editbtn lab' onclick = "editentry({{$result->lab_id}},'lab',this)"><i class ='ui edit icon'></i>Edit</button>
+            <button class ='ui red button' onclick = "deleteentry({{ $result->lab_id }})"><i class ='ui trash icon'></i>Delete</button>
           </div></td>
         </tr>
         @endforeach

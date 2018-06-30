@@ -95,8 +95,8 @@ class LabschedController extends Controller
       <td id = 'status'>{$status}</td>
       <td id = 'schedule'>{$result->schedule}</td>
       <td><div class ='ui buttons'>
-      <button class ='ui blue button editbtn labsched' onclick = \"editentry({$result->reserved_lab_id},'labsched',this)\">Edit</button>
-      <button class ='ui red button' onclick = \"deleteentry({$result->reserved_lab_id})\">Delete</button>
+      <button class ='ui blue button editbtn labsched' onclick = \"editentry({$result->reserved_lab_id},'labsched',this)\"><i class ='ui edit icon'></i>Edit</button>
+      <button class ='ui red button' onclick = \"deleteentry({$result->reserved_lab_id})\"><i class ='ui trash icon'></i>Delete</button>
       </div></td>
       </tr>";
     }

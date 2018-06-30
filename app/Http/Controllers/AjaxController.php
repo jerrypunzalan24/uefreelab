@@ -32,9 +32,9 @@ class AjaxController extends Controller
       $terminalStr .= "<tr>
       <td><b>{$terminal->name}</b></td>
       <td id ='ipAddress'>{$terminal->ip}</td>
-      <td><div class ='ui buttons'>
-      <button class ='ui blue button editbtn lab' onclick = \"editentry({$terminal->lab_id},'terminal',this)\">Edit</button>
-      <button class ='ui red button' onclick = \"deleteentry({ $terminal->lab_id })\">Delete</button>
+      <td><div class ='ui buttons' style ='width:100%'>
+      <button class ='ui blue button editbtn lab' onclick = \"editentry({$terminal->lab_id},'terminal',this)\"><i class ='ui edit icon'></i>Edit</button>
+      <button class ='ui red button' onclick = \"deleteentry({ $terminal->lab_id })\"><i class ='ui trash icon'></i>Delete</button>
       </div></td>
       </tr>";
     }

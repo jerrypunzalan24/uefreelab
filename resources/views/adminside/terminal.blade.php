@@ -14,7 +14,10 @@
       {{session('success')}}
     </div>
     @endif
-    <button class ='ui blue button addbtn' id = 'laboratories' style ='margin-bottom:10px'>Add</button><br/>
+    <div class ='ui buttons'>
+    <button class ='ui blue button addbtn' id = 'laboratories' style ='margin-bottom:10px'><i class ='ui plus icon'></i>Add</button><br/>
+    <button class ='ui green button' id = 'range' style ='margin-bottom:10px'><i class ='ui sitemap icon'></i>Assign IP by range</button>
+    </div>
     <div class ='ui basic buttons' style ='width:100%'>
       @foreach($buttons as $button)
       <button class ='ui basic button terminal'>{{$button->lab_name}}</button>
@@ -34,8 +37,8 @@
           <td><b id =''>{{$result->name}}</b></td>
           <td id = 'ipAddress'>{{$result->ip}}</td>
           <td><div class ='ui buttons' style ='width:100%'>
-            <button class ='ui blue button editbtn lab' onclick = "editentry({{$result->lab_id}},'terminal',this)">Edit</button>
-            <button class ='ui red button' onclick = "deleteentry({{ $result->lab_id }})">Delete</button>
+            <button class ='ui blue button editbtn lab' onclick = "editentry({{$result->lab_id}},'terminal',this)"><i class ='ui edit icon'></i>Edit</button>
+            <button class ='ui red button' onclick = "deleteentry({{ $result->lab_id }})"><i class ='ui trash icon'></i>Delete</button>
           </div></td>
         </tr>
         @endforeach

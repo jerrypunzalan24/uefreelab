@@ -35,7 +35,7 @@
                 <td>
                     <input type ='hidden' name ='id' value ='{{$result->student_id}}'/>
                     <input type ='hidden' name ='studentnumber' value = '{{$result->studentnumber}}'>
-                    <a href = '#' class ='ui blue button timeout' style ='padding:10px' >Time out</a>
+                    <a href = '#' class ='ui blue button timeout' style ='padding:8px;' ><i class ='ui times icon'></i>Time out</a>
                 </td>
               </tr>
               @endforeach

@@ -9,8 +9,8 @@
   <div class ='content' style =' font-size:0.9em'>
    <form method ='POST' id ='deleteform' action ='deleteall'>
     @csrf
-    <a class ='ui blue button addbtn' id = 'labsched' style ='margin-bottom:10px'>Add</a>
-    <a class ='ui red button' onclick ="$('#deletemodal').modal('show')">Delete all</a>
+    <a class ='ui blue button addbtn' id = 'labsched' style ='margin-bottom:10px'><i class ='ui plus icon'></i>Add</a>
+    <a class ='ui red button' onclick ="$('#deletemodal').modal('show')"><i class ='ui trash icon'></i>Delete all</a>
     <input name ='deletebtn' class ='ui red button' type ='hidden' style ='margin-bottom:10px' value ='Delete all'>
   </form>
   <form method = 'POST' action ='upload' id ='fileupload' style ='display:inline-block'>
@@ -40,7 +40,7 @@
         <th>Time</th>
         <th>Description</th>
         <th style ='width:60px'>Lab name</th>
-        <th>Status</th>
+        <th style ='width:80px'>Status</th>
         <th style ='width:80px'>Schedule</th>
         <th>Action</th>
       </tr>
@@ -53,7 +53,9 @@
         <td id = 'labname'>{{ $result->lab_name }}</td>
         <td id = 'status'>{{ $result->status == 0 ? "Available" :"Not available" }}</td>
         <td id = 'schedule'>{{ $result->schedule }}</td>
-        <td><div class ='ui buttons'><button class ='ui blue button editbtn labsched' onclick ="editentry({{$result->reserved_lab_id}}, 'labsched',this)" >Edit</button> <button class ='ui red button' onclick = "deleteentry({{ $result->reserved_lab_id }})">Delete</button>
+        <td><div class ='ui buttons' style= 'width:100%'>
+          <button class ='ui blue button editbtn labsched' onclick ="editentry({{$result->reserved_lab_id}}, 'labsched',this)" ><i class ='ui edit icon'></i>Edit</button> 
+          <button class ='ui red button' onclick = "deleteentry({{ $result->reserved_lab_id }})"><i class ='ui trash icon'></i>Delete</button>
         </div></td>
       </tr>
       @endforeach

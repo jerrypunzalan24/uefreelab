@@ -7,7 +7,7 @@
     <h5 class ='title' style ='font-weight:500'></h5>
   </div>
   <div class ='content' style =' font-size:0.9em'>
-    <button class = 'ui blue button addbtn' id = 'acc' style ='margin-bottom:10px'>Add</button><br/>
+    <button class = 'ui blue button addbtn' id = 'acc' style ='margin-bottom:10px'><i class ='ui plus icon'></i>Add</button><br/>
     
   @if(session('success')!==null)
   <div class ='ui blue message'>
@@ -32,9 +32,9 @@
           <td id = 'username'>{{$result->username}}</td>
           <td id = 'role'>{{$result->role == 0 ? "Admin" : "Facilitator"}}</td>
           <td>
-            <div class ='ui buttons'>
-              <button class ='ui blue button editbtn acc' onclick ="editentry({{$result->id}}, 'acc', this)">Edit</button>
-              <button class ='ui red button' onclick = "deleteentry({{$result->id}})">Delete</button>
+            <div class ='ui buttons' style ='width:100%'>
+              <button class ='ui blue button editbtn acc' onclick ="editentry({{$result->id}}, 'acc', this)"><i class ='ui edit icon'></i>Edit</button>
+              <button class ='ui red button' onclick = "deleteentry({{$result->id}})"><i class ='ui trash icon'></i>Delete</button>
             </div>
           </td>
         </tr>
