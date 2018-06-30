@@ -40,4 +40,12 @@ class AjaxController extends Controller
     }
     return $terminalStr;
   }
+  public function getallterminals(Request $request){
+    $terminals = \DB::table('terminals')->orderByRaw("terminal_id ASC")->get();
+    $response = "";
+    foreach($terminals as $terminal){
+      $response .= "<option value = '{$terminal->terminal_id}'>{$terminal->name}</option>";
+    }
+    return $response;
+  }
 }

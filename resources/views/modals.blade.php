@@ -56,6 +56,37 @@
     </div>
   </div>
 </div>
+<div class="ui small modal" id = 'iprange'>
+  <div class="header">Assign by IP range</div>
+  <div class="content">
+      <form method ='POST' class ='ui form' action ='setiprange'>
+        @csrf
+      <div class ='two fields'>
+        <div class ='field'>
+          <label>Terminal 1</label>
+          <select name ='terminal' class= 'ui dropdown'>
+
+          </select>
+        </div>
+        <div class ='field'>
+          <label>Terminal 2</label>
+          <select name ='terminal1' class ='ui dropdown'>
+
+          </select>
+        </div>
+      </div>
+      <div class ='field'>
+        <label>Start IP</label>
+        <input type ='text' name ='startip' REQUIRED placeholder = 'e.g. 192.168.254.100' maxlength="15">
+      </div>
+    </div>
+    <div class ='actions'>
+      <div class ='fields'>
+        <input type ='submit' class ='ui blue button' value ='Submit'>
+      </div>
+    </form>
+  </div>
+</div>
 <div class="ui modal" id="roomsModal" >
 	<i class ='close icon'></i>
 	<div class ='header'>

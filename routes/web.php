@@ -53,6 +53,8 @@ Route::group(['prefix'=>'/dashboard', 'middleware' =>'login'],function(){
       Route::post('/add', 'TerminalController@add');
       Route::post('/edit','TerminalController@edit');
       Route::post('/delete','TerminalController@delete');
+      Route::post('/setiprange','TerminalController@setiprange');
+      Route::post("/getallterminals", "AjaxController@getallterminals");
     });
   });
 });

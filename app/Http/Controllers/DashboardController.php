@@ -139,7 +139,7 @@ class DashboardController extends Controller
   }
   public function terminals(Request $request){
     $buttons =\DB::table('labs')->orderByRaw('lab_id ASC')->get();
-    $results = \DB::table('terminals')->orderByRaw('name ASC')->get();
+    $results = \DB::table('terminals')->orderByRaw('terminal_id ASC')->get();
     return view('adminside.terminal', ['results' => $results,
       'admin'=>true,
       'role'=> $request->session()->get('role'),

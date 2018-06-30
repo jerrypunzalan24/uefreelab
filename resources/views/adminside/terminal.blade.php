@@ -63,4 +63,18 @@
       }
     })
   })
+  $('#range').click(function(){
+    $.ajax({
+      type:"POST",
+      url:"getallterminals",
+      data:{},
+      success:function(html){
+        $('select[name=terminal], select[name=terminal1]').html(html)
+        $('#iprange').modal('show')
+      },
+      error:function(html){
+        console.log(html)
+      }
+    })
+  })
 </script>
