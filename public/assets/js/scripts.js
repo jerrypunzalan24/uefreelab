@@ -16,7 +16,7 @@ function checkpassword(){
 function checkoldpass(x){
   $.ajax({
     type:"POST",
-    url:"dashboard/accounts",
+    url:"/uefreelab/public/dashboard/accounts",
     data:{
       id: $('input[name=id]').val(),
       password:$(x).val(),
@@ -44,7 +44,7 @@ function checkduplicate(x,y){
   }
   $.ajax({
     type:"POST",
-    url:"/dashboard/accounts",
+    url:"/uefreelab/public/dashboard/accounts",
     contentType:false,
     processData:false,
     data:formData,
@@ -231,7 +231,7 @@ function editentry(x, y,z){
       $.ajax({
         type:'POST',
         data:{},
-        url: "/dashboard/labsched/getlabs",
+        url: "/uefreelab/public/dashboard/labsched/getlabs",
         success: function(html){
           $('#formcontentadd').html(`<div class ='two fields'>
             <div class ='field'>

@@ -9,8 +9,8 @@
     <p style ='color:red;font-weight:bold'>Your student records will be deleted as well. Are you sure?</p>
   </div>
   <div class ='actions'>
-    <a href ='#' class ='ui red button' onclick = "$('#deleteform').submit()">Yes</a>
-    <a href ='#' class= 'ui blue button' onclick="$('#deletemodal').modal('hide')">No</a>
+    <a  class ='ui red button' onclick = "$('#deleteform').submit()">Yes</a>
+    <a  class= 'ui blue button' onclick="$('#deletemodal').modal('hide')">No</a>
   </div>
 </div>
 <div class ='ui tiny modal' id = 'addmodal'>

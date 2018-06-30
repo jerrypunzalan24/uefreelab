@@ -28,11 +28,11 @@ $(document).ready(function(){
 		$(this).addClass('active')
 		if($(this).hasClass('day')){
 			category = 'day'
-			link = '/filter/filterstudent'
+			link = '/uefreelab/public/filter/filterstudent'
 		}
 		else if($(this).hasClass('lab')){
 			category = 'lab'
-			link = '/dashboard/labsched/filterlab'
+			link = '/uefreelab/public/dashboard/labsched/filterlab'
 		}
 		$.ajax({
 			type: 'POST',

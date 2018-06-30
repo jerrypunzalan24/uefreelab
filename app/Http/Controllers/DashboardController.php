@@ -19,6 +19,9 @@ use Codedge\Fpdf\Facades\Fpdf;
 class DashboardController extends Controller
 {
   public function index(Request $request){
+    $hostip = substr($request->server("HTTP_HOST"), 0,strrpos($request->server("HTTP_HOST"), ":"));
+    if($request->ip() === $hostip)
+      return redirect('/');
     if($request->session()->has('admin_login')){
       return redirect('/dashboard');
     }

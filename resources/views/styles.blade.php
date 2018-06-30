@@ -20,6 +20,34 @@ body{
 .item{
 	font-size:1.15em;
 }
+@font-face{
+font-family:Roboto;
+src:url({{asset('assets/fonts/Roboto-Regular.ttf')}});
+}
+td, th{
+  font-family:Roboto;
+}
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  font-family:Roboto;
+}
+::-moz-placeholder { /* Firefox 19+ */
+ font-family:Roboto;
+}
+:-ms-input-placeholder { /* IE 10+ */
+ font-family:Roboto;
+}
+:-moz-placeholder { /* Firefox 18- */
+ font-family:Roboto;
+}
+*{
+  font-family:Roboto;
+}
+.ui.button{
+  font-family:Roboto;
+}
+a{
+  font-family:Roboto;
+}
 body{
 	background-image: url({{ asset("assets/img/bg.jpg")}});
 	background-size:100%;

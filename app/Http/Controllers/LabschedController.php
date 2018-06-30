@@ -31,7 +31,7 @@ class LabschedController extends Controller
   }
   public function upload(Request $request){
     $reader = null;
-    if(strrchr($request->importched, ".") == '.xls')
+    if(strrchr($request->importsched, ".") == '.xls')
       $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
     else if(strrchr($request->importsched, ".") == '.xlsx')
       $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
@@ -41,6 +41,7 @@ class LabschedController extends Controller
     $labArray = array();
     foreach($labs as $lab)
       $labArray[$lab->lab_name] = $lab->lab_id;
+    $temptimeout = "";
     for($i = 1; $i <= count($dataArray); $i++){
       if(strlen(implode($dataArray[$i])) == 0)
         break;
@@ -56,6 +57,15 @@ class LabschedController extends Controller
         $room = explode(" ", $dataArray[$i][7])[1];
       }
       if(!empty(trim($dataArray[$i][7])) && array_key_exists($room, $labArray)){
+        if($timein !== $temptimeout){
+          \DB::table('reserved_lab')->insertgetId([
+            'time_in' => $temptimeout,
+            'time_out' => $timein,
+            'lab_id' => $labArray[strtoupper(trim($room))],
+            'description' => 'Available schedule',
+            'schedule' => $days,
+            'status' => 0]);
+        }
         \DB::table('reserved_lab')->insertgetId([
           'time_in'=> $timein,
           'time_out' => $timeout,
@@ -65,18 +75,13 @@ class LabschedController extends Controller
           'status' => 1,
         ]);
       }
-    // \DB::table('reserved_lab')->insertgetId([
-    //   'time_in' => $dataArray[$i][0],
-    //   'time_out' => $dataArray[$i][1],
-    //   'lab_id' => $labArray[strtoupper($dataArray[$i][2])],
-    //   'status' => strtoupper($dataArray[$i][3]) == "AVAILABLE" ? 0 : 1,
-    //   'schedule' => $dataArray[$i][4]]);
-      // print_r($dataArray[$i]). "<br/>";
+      $temptimeout = $timeout;
     }
     return redirect('dashboard/labsched')->with('success','Upload success');
   }
   public function deleteall(Request $request){
     \DB::table('reserved_lab')->delete();
+    echo "Delete success";
     return redirect('dashboard/labsched');
 
   }

@@ -53,7 +53,7 @@
   $('.terminal').click(function(){
     $.ajax({
       type:"POST",
-      url:"/filterterminal",
+      url:"/uefreelab/public/filterterminal",
       data:{name: $(this).html()},
       success:function(html){
         $('#terminalbody').html(html)
@@ -66,7 +66,7 @@
   $('#range').click(function(){
     $.ajax({
       type:"POST",
-      url:"getallterminals",
+      url:"/uefreelab/public/dashboard/terminal/getallterminals",
       data:{},
       success:function(html){
         $('select[name=terminal], select[name=terminal1]').html(html)

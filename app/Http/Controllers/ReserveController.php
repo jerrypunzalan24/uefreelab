@@ -10,7 +10,7 @@ class ReserveController extends Controller
     $request->session()->forget('student');
     $hostip = substr($request->server("HTTP_HOST"), 0,strrpos($request->server("HTTP_HOST"), ":"));
     echo $hostip;
-    if($request->ip() === $hostip || $request->ip() === "127.0.0.1"){
+    if($request->ip() === $hostip || $request->ip() === "127.0.0.1" || $request->ip()==="::1"){
       if($request->has('btnSubmit')){
         $check = \DB::table('students')->whereRaw("studentnumber = '{$request->studentnumber}' AND status = 0")->get();
         if(count($check)==0){

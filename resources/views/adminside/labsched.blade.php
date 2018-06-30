@@ -1,7 +1,7 @@
 @include ("adminside.dashboardheader")
 @include ("adminside.adminsidebar")
 @include ("modals")
-<base href ='uefreelab/public/dashboard/labsched/'>
+<base href ='/uefreelab/public/dashboard/labsched/'>
 <div class ='ui segment' style ='width:45%'>
   <div class ='header'>
     <h5 class ='title' style ='font-weight:500'></h5>
@@ -49,7 +49,7 @@
       @foreach ($results as $result)
       <tr>
         <td><b id = 'timer'>{{ $result->time_in }} - {{ $result->time_out}}</b></td> 
-        <td>{{$result->description}}</td>   
+        <td>{{$result->description === "" ?  "Available Schedule" : $result->description}}</td>   
         <td id = 'labname'>{{ $result->lab_name }}</td>
         <td id = 'status'>{{ $result->status == 0 ? "Available" :"Not available" }}</td>
         <td id = 'schedule'>{{ $result->schedule }}</td>
