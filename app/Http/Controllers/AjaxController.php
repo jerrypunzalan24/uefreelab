@@ -48,4 +48,26 @@ class AjaxController extends Controller
     }
     return $response;
   }
+  public function check(Request $request){
+    $results = \DB::table('students')->where('status',0)->get();
+    $response_html = "";
+    foreach($results as $result){
+      $active = $result->active === 0 ? "Active" : "Inactive";
+      $response_html .= "<tr>
+      <td>{$result->studentnumber}</td>
+      <td>{$result->firstname} {$result->lastname}</td>
+      <td>{$active}</td>
+      <td>{$result->subject}</td>
+      <td>{$result->course}</td>
+      <td>{$result->time_in}</td>
+      <td>{$result->name}</td>
+      <td>
+      <input type ='hidden' name ='id' value ='{$result->student_id}'/>
+      <input type ='hidden' name ='studentnumber' value = '{$result->studentnumber}'>
+      <a  class ='ui blue button timeout' style ='padding:8px;' ><i class ='ui times icon'></i>Time out</a>
+      </td>
+      </tr>";
+    }
+    return $response_html;
+  }
 }

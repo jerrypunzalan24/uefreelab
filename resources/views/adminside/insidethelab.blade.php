@@ -55,5 +55,17 @@
       $('input[name=studentnumber1]').val(studentnumber)
       $('#timeout').modal('show')
     })
+    setInterval(function(){
+      $.ajax({
+        type:"POST",
+        url:"/uefreelab/public/dashboard/check",
+        data:{},
+        success:function(html){
+          $('#onlabtbody').html(html)
+        },error:function(html){
+          console.log(html)
+        }
+      })
+    },1500)
   })
 </script>

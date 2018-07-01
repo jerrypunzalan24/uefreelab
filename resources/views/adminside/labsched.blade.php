@@ -7,21 +7,26 @@
     <h5 class ='title' style ='font-weight:500'></h5>
   </div>
   <div class ='content' style =' font-size:0.9em'>
-   <form method ='POST' id ='deleteform' action ='deleteall'>
-    @csrf
-    <a class ='ui blue button addbtn' id = 'labsched' style ='margin-bottom:10px'><i class ='ui plus icon'></i>Add</a>
-    <a class ='ui red button' onclick ="$('#deletemodal').modal('show')"><i class ='ui trash icon'></i>Delete all</a>
-    <input name ='deletebtn' class ='ui red button' type ='hidden' style ='margin-bottom:10px' value ='Delete all'>
-  </form>
-  <form method = 'POST' action ='upload' id ='fileupload' style ='display:inline-block'>
-    @csrf
-    <div style ='overflow:hidden;position:relative;'>
-      <a class ='ui icon green button'>
-        <i class ='file icon'></i>Upload schedule
-      </a>
-      <input type ='file' name ='importsched' style='opacity:0;position:absolute;left:0;top:0;width:100%;height:100%'value =''/> 
+    <div class ='ui yellow message'>
+      <div class ='header'>Warning</div>
+      <p>Deleting one or all schedule will affect student records who are taking the schedule. Make sure to print or backup all student data</p>
     </div>
-  </form>
+        <form method ='POST' id ='deleteform' action ='deleteall'>
+        @csrf
+        <a class ='ui blue button addbtn' id = 'labsched' style ='margin-bottom:10px'><i class ='ui plus icon'></i>Add</a>
+        <a class ='ui red button' onclick ="$('#deletemodal').modal('show')"><i class ='ui trash icon'></i>Delete all</a>
+        <input name ='deletebtn' class ='ui red button' type ='hidden' style ='margin-bottom:10px' value ='Delete all'>
+      </form>
+      <form method = 'POST' action ='upload' id ='fileupload' style ='display:inline-block'>
+        @csrf
+        <div style ='overflow:hidden;position:relative;'>
+          <a class ='ui icon green button'>
+            <i class ='file icon'></i>Upload schedule
+          </a>
+          <input type ='file' name ='importsched' style='opacity:0;position:absolute;left:0;top:0;width:100%;height:100%'value =''/> 
+        </div>
+      </form>
+  </div>
   @if(session('success')!==null)
   <div class ='ui blue message'>
     <i class ='close icon'></i>

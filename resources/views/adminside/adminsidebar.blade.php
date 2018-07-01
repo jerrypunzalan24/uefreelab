@@ -1,12 +1,14 @@
-      <div class ='ui segments' style ='margin:10px'>
-        @if (isset($insidethelab))
+    
+       
+          @if (!empty($role))
+            <div class ='ui segments' style ='margin:10px'>
+           @if (isset($insidethelab))
           <div class ='ui blue inverted segment headitem'>
         @else
           <div  class ='ui segment headitem'>
         @endif
           <a class='subitem' value ='1' href ='/uefreelab/public/dashboard/'>Show students inside the lab</a>
         </div>
-          @if (!empty($role))
             @if (isset($allstudents))
               <div  class ='ui blue inverted segment headitem'>
             @else
@@ -42,5 +44,6 @@
             @endif
                 <a class='subitem' value ='3' href ='/uefreelab/public/dashboard/terminal'>Terminals</a>
               </div>
-          @endif
+
             </div>
+          @endif

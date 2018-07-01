@@ -22,7 +22,7 @@ body{
 }
 @font-face{
 font-family:Roboto;
-src:url({{asset('assets/fonts/Roboto-Regular.ttf')}});
+src:url({{asset('fonts/Roboto-Regular.ttf')}});
 }
 td, th{
   font-family:Roboto;

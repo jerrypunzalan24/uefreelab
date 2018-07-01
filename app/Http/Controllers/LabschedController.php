@@ -80,10 +80,12 @@ class LabschedController extends Controller
     return redirect('dashboard/labsched')->with('success','Upload success');
   }
   public function deleteall(Request $request){
+    $reserved_labs = \DB::table('reserved_lab')->get();
+    foreach(reserved_labs as $reserved_lab){
+      \DB::table('students')->where('reserved_lab_id',$reserved_lab->reserved_lab_id)->delete();
+    }
     \DB::table('reserved_lab')->delete();
-    echo "Delete success";
     return redirect('dashboard/labsched');
-
   }
   public function filterlab(Request $request){
     $response_html = '';

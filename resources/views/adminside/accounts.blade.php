@@ -7,6 +7,11 @@
     <h5 class ='title' style ='font-weight:500'></h5>
   </div>
   <div class ='content' style =' font-size:0.9em'>
+    <div class= 'ui blue message'>
+      <div class ='header'>Privileges</div>
+      <p><b>Admin</b> - can access all features in this dashboard</p>
+      <p><b>Facilitator</b> - can only access "Students inside the lab"</p>
+    </div>
     <button class = 'ui blue button addbtn' id = 'acc' style ='margin-bottom:10px'><i class ='ui plus icon'></i>Add</button><br/>
     
   @if(session('success')!==null)

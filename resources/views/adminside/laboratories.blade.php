@@ -14,6 +14,11 @@
     {{session('success')}}
   </div>
   @endif
+    <div class ='ui yellow message'>
+      <div class ='header'>Warning</div>
+      <p>-Reducing capacity will delete some terminals causing it to delete a student record who have it.</p>
+      <p>-A laboratory has a relation with schedules, terminal, and students. Deleting it will affect the three.</p>
+    </div>
     <button class ='ui blue button addbtn' id = 'laboratories' style ='margin-bottom:10px'><i class ='ui plus icon'></i>Add</button><br/>
     <table class ='ui fixed celled striped table'>
       <thead>
