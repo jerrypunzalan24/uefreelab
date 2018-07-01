@@ -41,7 +41,7 @@ class LabschedController extends Controller
     $labArray = array();
     foreach($labs as $lab)
       $labArray[$lab->lab_name] = $lab->lab_id;
-    $temptimeout = "";
+    // Inserting 'Not available' schedules
     for($i = 1; $i <= count($dataArray); $i++){
       if(strlen(implode($dataArray[$i])) == 0)
         break;
@@ -57,15 +57,6 @@ class LabschedController extends Controller
         $room = explode(" ", $dataArray[$i][7])[1];
       }
       if(!empty(trim($dataArray[$i][7])) && array_key_exists($room, $labArray)){
-        if($timein !== $temptimeout){
-          \DB::table('reserved_lab')->insertgetId([
-            'time_in' => $temptimeout,
-            'time_out' => $timein,
-            'lab_id' => $labArray[strtoupper(trim($room))],
-            'description' => 'Available schedule',
-            'schedule' => $days,
-            'status' => 0]);
-        }
         \DB::table('reserved_lab')->insertgetId([
           'time_in'=> $timein,
           'time_out' => $timeout,
@@ -75,13 +66,46 @@ class LabschedController extends Controller
           'status' => 1,
         ]);
       }
-      $temptimeout = $timeout;
+    }
+    // Inserting 'Available schedules'
+    $starttime = "07:00:00"; // Assuming that lab opens at 7:00 AM
+    $endtime = "19:00:00"; // Assuming that lab closes at 7:00 PM
+    $currentsched = "MWF";
+    $currentid = 0;
+    $results = \DB::table('reserved_lab')->join('labs','reserved_lab.lab_id','=','labs.lab_id')->orderByRaw("lab_name ASC, schedule ASC, time_in ASC")->get();
+    foreach($results as $result){
+      if($currentsched != $result->schedule){
+        // if the last schedule is not equal to 7:00 PM, add the last available schedule.
+        if($starttime !== $endtime || $currentid != $result->lab_id){
+          \DB::table('reserved_lab')->insertgetId([
+            'time_in' => $starttime,
+            'time_out' => $endtime,
+            'description' => 'Available schedule',
+            'lab_id' => $result->lab_id,
+            'schedule' => $currentsched,
+            'status' => 0]);
+        }
+        $starttime = "07:00:00"; // Reset to 7:00 AM if the schedule becomes different
+      }
+      if($starttime !== $result->time_in){
+        \DB::table('reserved_lab')->insertgetId([
+          'time_in' => $starttime,
+          'time_out' => $result->time_in,
+          'description' => 'Available schedule',
+          'lab_id' => $result->lab_id,
+          'schedule' => $result->schedule,
+          'status' => 0,
+        ]);
+      }
+      $starttime = $result->time_out;
+      $currentsched = $result->schedule;
+      $currentid = $result->lab_id;
     }
     return redirect('dashboard/labsched')->with('success','Upload success');
   }
   public function deleteall(Request $request){
     $reserved_labs = \DB::table('reserved_lab')->get();
-    foreach(reserved_labs as $reserved_lab){
+    foreach($reserved_labs as $reserved_lab){
       \DB::table('students')->where('reserved_lab_id',$reserved_lab->reserved_lab_id)->delete();
     }
     \DB::table('reserved_lab')->delete();
@@ -92,7 +116,7 @@ class LabschedController extends Controller
     $results = \DB::table('reserved_lab')
     ->join('labs','labs.lab_id','=','reserved_lab.lab_id')
     ->where('labs.lab_name',$request->value)
-    ->orderByRaw("reserved_lab.time_in ASC")->get();
+    ->orderByRaw("labs.lab_name ASC, reserved_lab.schedule ASC, reserved_lab.time_in ASC")->get();
     foreach($results as $result){
       $status = $result->status == 0 ? "Available" : "Not available" ;
       $response_html .= "<tr>

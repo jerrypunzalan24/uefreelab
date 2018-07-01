@@ -38,7 +38,6 @@
           <td id = 'ipAddress'>{{$result->ip}}</td>
           <td><div class ='ui buttons' style ='width:100%'>
             <button class ='ui blue button editbtn lab' onclick = "editentry({{$result->lab_id}},'terminal',this)"><i class ='ui edit icon'></i>Edit</button>
-            <button class ='ui red button' onclick = "deleteentry({{ $result->lab_id }})"><i class ='ui trash icon'></i>Delete</button>
           </div></td>
         </tr>
         @endforeach
