@@ -16,7 +16,7 @@ class login
     public function handle($request, Closure $next)
     {
         if(!$request->session()->has('admin_login')){
-            return redirect('/login');
+            return redirect('/login')->with('error','Please login to continue');
         }
         return $next($request);
     }

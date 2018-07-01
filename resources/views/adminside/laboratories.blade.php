@@ -1,7 +1,7 @@
 @include ("adminside.dashboardheader")
 @include ("adminside.adminsidebar")
 @include ("modals")
-<base href ='uefreelab/public/dashboard/laboratories/'>
+<base href ='/uefreelab/public/dashboard/laboratories/'>
 <div class ='ui segment' style ='width:45%'>
   <div class ='header'>
     <h5 class ='title' style ='font-weight:500'></h5>

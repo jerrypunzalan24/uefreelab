@@ -10,14 +10,10 @@
         </div>
       </div>
       <div class ='content'>
-        @if (isset($error))
+        @if (session('error')!==null)
         <div class="ui error message" style ='font-size:0.9em'>
           <i class ='close icon' onclick = "$('.error.message').hide()"></i>
-          <div class="header" >Error</div> Incorrect username and password
-        </div>
-        @elseif (isset($permissionerror))
-        <div class ='ui error message' style ='font-size: 0.9em'>
-          <div class ='header'>Permission error</div> Please login to continue
+          <div class="header" >Error</div> {{session('error')}}
         </div>
         @endif
         <form method ='post' class ='ui large form'>

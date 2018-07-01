@@ -27,11 +27,19 @@ class DashboardController extends Controller
     }
     if($request->has('submit')){
       $check = \DB::table('accounts')->where('username',$request->username)->get();
-      if(password_verify($request->password, $check[0]->password)){
-        $request->session()->put("admin_login",true);
-        $request->session()->put("username", $request->username);
-        $request->session()->put("role", $check[0]->role == 0 ? true : false);
-        return redirect('/dashboard');
+      if(count($check) != 0){
+        if(password_verify($request->password, $check[0]->password)){
+          $request->session()->put("admin_login",true);
+          $request->session()->put("username", $request->username);
+          $request->session()->put("role", $check[0]->role == 0 ? true : false);
+          return redirect('/dashboard');
+        }
+        else{
+          return redirect('/login')->with('error', 'Username or password is incorrect');
+        }
+      }
+      else{
+        return redirect('/login')->with('error','Account not found');
       }
     }
     return view('adminside.adminloginpage',['navbar'=>true]);
