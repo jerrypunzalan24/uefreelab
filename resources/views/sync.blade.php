@@ -7,7 +7,9 @@
       <div class ='content'>
         <div class ='header'>
           <h2 class ='title'>Verify assigned terminal</h2>
+          @if(session('show')===null)
           <p style ='font-size:0.65em'>Enter your student number to continue</p>
+          @endif
         </div>
       </div>
       <div class ='content'>
@@ -22,6 +24,7 @@
           <div class ='header'>Info</div> {{session('message')}}
         </div>
         @endif
+        @if(session('show')===null)
         <form method ='post' class ='ui large form'>
           <div class ='field'>
             @csrf
@@ -29,6 +32,7 @@
           </div>
           <input type ='submit' name = 'verify' class ='ui positive button' value ='Verify'/>
         </form>
+        @endif
       </div>
     </div>
 

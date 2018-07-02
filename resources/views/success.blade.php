@@ -33,7 +33,7 @@ body{
         Your assigned terminal is <b>{{$terminal}}</b>
         </div>
         <div class ='extra content'>
-          <a href = '/' class ='ui button primary'>Go back</a>
+          <a href = '/uefreelab/public/' class ='ui button primary'>Go back</a>
         </div>
 </div>
 @include ("scripts")
