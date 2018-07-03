@@ -1,7 +1,7 @@
 @include ("styles")
 <div class="ui top fixed menu" style ='margin-bottom:50px; margin-top:0px;'>
 	<div class ='header item'>
-		University of the East Freelab System
+		Welcome
 	</div>
 
 	<div class ='right menu'>

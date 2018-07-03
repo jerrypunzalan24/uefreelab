@@ -13,6 +13,17 @@
   -webkit-appearance: none; 
   margin: 0; 
 }
+.ui.form .field.error input[type=number].trans,.ui.form .field.error input[type=text].trans{
+  border-color:red;
+  background:rgba(0,0,0,0.5);
+  color:white;
+}
+
+.ui.form .field.error input[type=number].trans:focus,.ui.form .field.error  input[type=text].trans:focus{
+  border-color:red;
+  background:rgba(0,0,0,0.5);
+  color:white;
+}
 body{
 	font-size:1.20em;
 	text-rendering: optimizeLegibility;
@@ -49,7 +60,7 @@ a{
   font-family:Roboto;
 }
 body{
-	background-image: url({{ asset("assets/img/bg.jpg")}});
+	background-image: url({{ asset("assets/img/1.jpg")}});
 	background-size:100%;
 	background-attachment: fixed;
 }a{
@@ -59,17 +70,28 @@ body{
 a:hover{
 	color:inherit;
 }
+.trans{
+  background:black;
+}
+.ui.form input.trans{
+  background:rgba(0,0,0,0.5);
+  color:white;
+}
+.ui.form input.trans:focus{
+  background:rgba(0,0,0,0.5);
+  color:white;
+}
 #color-overlay {
 	position: absolute;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background-color: #2D9659;
+	background: linear-gradient(-90deg, violet, green);
 	z-index:-1;
 	/*background-color: #EC9CFF;*/
 	/*	background-color: #FF768F;*/
-	opacity: 0.3;
+	opacity: 0.6;
 	position:fixed;
 }
 </style>
