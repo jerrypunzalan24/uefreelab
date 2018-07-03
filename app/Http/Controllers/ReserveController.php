@@ -10,7 +10,9 @@ class ReserveController extends Controller
     $request->session()->forget('student');
     $hostip = substr($request->server("HTTP_HOST"), 0,strrpos($request->server("HTTP_HOST"), ":"));
     echo $hostip;
-    if($request->ip() === $hostip || $request->ip() === "127.0.0.1" || $request->ip()==="::1"){
+    echo $request->ip();
+    //if($request->ip() === $hostip || $request->ip() === "127.0.0.1" || $request->ip()==="::1"){
+    if(false){
       if($request->has('btnSubmit')){
         $check = \DB::table('students')->whereRaw("studentnumber = '{$request->studentnumber}' AND status = 0")->get();
         if(count($check)==0){
@@ -31,16 +33,21 @@ class ReserveController extends Controller
       return view('error',['message' => 'This device is not registered in this system.']);
     }
     if($request->has('verify')){
-      $getterminal= \DB::table('students')->where('studentnumber',$request->studentnumber)->selectRaw("*, terminal_id1 AS terminal_id")->get();
-      if(count($getterminal) == 0)
-        return redirect('/')->with('error', 'Student number not registered or not found');
-      $check = \DB::table('terminal')->where('terminal_id', $getterminal[0]->terminal_id);
-      if(count($check) != 0){
-        \DB::table('students')->whereRaw("studentnumber = '{$request->studentnumber}'")->update(['active'=>0]);
-        return redirect('/')->with('message', "Success! Enjoy using this terminal")->with('show',false);
-      }
-      else{
-        return redirect('/')->with('error',"Your assigned terminal is {$getterminal->terminal_name}");
+      $checkstudent = \DB::table('students')->whereRaw("studentnumber = '{$request->studentnumber}' AND active = 0")->get();
+      if(count($checkstudent)==0){
+        $getterminal= \DB::table('students')->where('studentnumber',$request->studentnumber)->selectRaw("*, terminal_id1 AS terminal_id")->get();
+        if(count($getterminal) == 0)
+          return redirect('/')->with('error', 'Student number not registered or not found');
+        $check = \DB::table('terminal')->where('terminal_id', $getterminal[0]->terminal_id);
+        if(count($check) != 0){
+          \DB::table('students')->whereRaw("studentnumber = '{$request->studentnumber}'")->update(['active'=>0]);
+          return redirect('/')->with('message', "Success! Enjoy using this terminal")->with('show',false);
+        }
+        else{
+          return redirect('/')->with('error',"Your assigned terminal is {$getterminal->terminal_name}");
+        }
+      }else{
+        return redirect('/')->with('error',"You have already registered this terminal");
       }
     }
     return view('sync');
