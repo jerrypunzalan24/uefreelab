@@ -35,6 +35,10 @@ body{
 font-family:Roboto;
 src:url({{asset('fonts/Roboto-Regular.ttf')}});
 }
+@font-face{
+  font-family:Bebas;
+  src:url({{asset('fonts/Roboto-Regular.ttf')}});
+}
 td, th{
   font-family:Roboto;
 }
