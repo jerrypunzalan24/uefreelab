@@ -9,7 +9,10 @@ Lead developer: Jeremiah F. Punzalan
 	
 </div>
 @include ("styles")
-<p style ='position:absolute;bottom:0;right:10;;color:white;font-weight:100'>Developed by UE CCSS	R&D</p>
+<div style ='position:absolute;bottom:10;right:10;'>
+<img src ='{{asset('assets/img/rnd-logo.png')}}' style ='width:40px;vertical-align:middle' />
+<span style ='color:white;font-weight:100'>Developed by UE CCSS	R&D</span>
+</div>
 <div style ='position:absolute;top:60;left:10;color:#F9F9F9;font-weight:100'>
 	<h1 style ='font-size:4em;margin-bottom:0px;text-shadow:2px 3px 2px #232323;font-family:Bebas;letter-spacing:3px'>UNIVERSITY OF THE <strong style ='color:#FF5E5E'>EAST</strong></h1>
 	<h1 style ='margin-top:5px;font-size:3em;text-shadow:2px 3px 2px #232323;font-family:Bebas;letter-spacing:3px'>FREELAB SYSTEM</h1>
