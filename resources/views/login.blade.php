@@ -74,7 +74,7 @@ Lead developer: Jeremiah F. Punzalan
 				@csrf
 				<div class ='field'>
 					<label style ='color:white;font-weight:100'>Enter your student number</label>
-					<input type ='text' class ='trans' name ='studentnumber' placeholder ='Student number' REQUIRED>
+					<input type ='text' class ='trans' name ='studentnumber' placeholder ='Student number' REQUIRED autocomplete="off">
 				</div>
 				<div class ='two fields'>
 					<div class ='field'>

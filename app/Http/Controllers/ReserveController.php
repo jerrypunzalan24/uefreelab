@@ -87,7 +87,8 @@ class ReserveController extends Controller
             'time_out'        => "00:00:00",
             'status'          => 0,
             'count'           => \DB::raw("count + 1"),
-            'active' => 1
+            'active' => 1,
+            'time_in' => date("H:i:s")
           ]);
         }
         else{
@@ -103,6 +104,7 @@ class ReserveController extends Controller
             'count' => 1,
             'hours' => 0.0,
             'time_out' => "00:00:00",
+            'time_in'=>date("H:i:s"),
             'active' => 1
           ]);
         }

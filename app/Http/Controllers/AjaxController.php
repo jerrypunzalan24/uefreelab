@@ -52,7 +52,7 @@ class AjaxController extends Controller
     return $response;
   }
   public function check(Request $request){
-    $results = \DB::table('students')->where('status',0)->get();
+    $results = \DB::table('students')->join('terminals','students.terminal_id1','=','terminals.terminal_id')->where('status',0)->get();
     $response_html = "";
     foreach($results as $result){
       $active = $result->active === 0 ? "Active" : "Inactive";
