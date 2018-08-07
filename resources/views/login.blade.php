@@ -78,10 +78,10 @@ Lead developer: Jeremiah F. Punzalan
 				</div>
 				<div class ='two fields'>
 					<div class ='field'>
-						<input type ='submit' class ='ui button positive fluid' id ='goback' value ='Go Back'/>
+						<input type ='submit' class ='ui button positive fluid' name ='btnReserveSubmit'>
 					</div>
 					<div class ='field'>
-						<input type ='submit' class ='ui button positive fluid' name ='btnReserveSubmit'>
+						<input type ='submit' class ='ui button positive fluid' id ='goback' value ='Go Back'/>
 					</div>
 				</div>
 			</form>
