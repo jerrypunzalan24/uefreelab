@@ -42,9 +42,11 @@ class LabschedController extends Controller
     foreach($labs as $lab)
       $labArray[$lab->lab_name] = $lab->lab_id;
     // Inserting 'Not available' schedules
-    for($i = 1; $i <= count($dataArray); $i++){
+    for($i = 1; $i < count($dataArray); $i++){
       if(strlen(implode($dataArray[$i])) == 0)
         break;
+
+      print_r($dataArray[$i]);
       $timein =  date("H:i:s", strtotime(explode("-",$dataArray[$i][5])[0]));
       $timeout = date("H:i:s", strtotime(explode("-",$dataArray[$i][5])[1]));
       $room = explode(" ", $dataArray[$i][6]);
@@ -69,7 +71,7 @@ class LabschedController extends Controller
     }
     // Inserting 'Available schedules'
     $starttime = "07:00:00"; // Assuming that lab opens at 7:00 AM
-    $endtime = "19:00:00"; // Assuming that lab closes at 7:00 PM
+    $endtime = "17:00:00"; // Assuming that lab closes at 7:00 PM
     $currentsched = "MWF";
     $currentid = 0;
     $results = \DB::table('reserved_lab')->join('labs','reserved_lab.lab_id','=','labs.lab_id')->orderByRaw("lab_name ASC, schedule ASC, time_in ASC")->get();

@@ -19,7 +19,11 @@ class AjaxController extends Controller
   public function getterminals(Request $request){
 
     $terminalStr ="";
-    $terminals = \DB::table('terminals')->leftJoin('students','students.terminal_id1','=','terminals.terminal_id')->whereRaw("(students.terminal_id1 is null OR students.status = 1) AND terminals.lab_id = {$request->id}")->orderBy('terminals.terminal_id','ASC')->get();
+
+    $terminals = \DB::table('terminals')
+    ->leftJoin('students','students.terminal_id1','=','terminals.terminal_id')
+    ->whereRaw("((students.terminal_id1 is null) OR students.status = 1) AND terminals.lab_id = {$request->id}")
+    ->orderBy('terminals.terminal_id','ASC')->get();
     foreach($terminals as $terminal){
       $terminalStr .= "<option value = '{$terminal->terminal_id}'>{$terminal->name}</option>";
     }

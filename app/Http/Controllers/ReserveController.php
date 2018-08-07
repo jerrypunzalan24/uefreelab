@@ -11,8 +11,8 @@ class ReserveController extends Controller
     $hostip = substr($request->server("HTTP_HOST"), 0,strrpos($request->server("HTTP_HOST"), ":"));
     echo $hostip;
     echo $request->ip();
-    //if($request->ip() === $hostip || $request->ip() === "127.0.0.1" || $request->ip()==="::1"){
-    if(false){
+    if($request->ip() === $hostip || $request->ip() === "127.0.0.1" || $request->ip()==="::1"){
+    //if(false){
       if($request->has('btnSubmit')){
         $check = \DB::table('students')->whereRaw("studentnumber = '{$request->studentnumber}' AND status = 0")->get();
         if(count($check)==0){
@@ -38,7 +38,7 @@ class ReserveController extends Controller
         $getterminal= \DB::table('students')->where('studentnumber',$request->studentnumber)->selectRaw("*, terminal_id1 AS terminal_id")->get();
         if(count($getterminal) == 0)
           return redirect('/')->with('error', 'Student number not registered or not found');
-        $check = \DB::table('terminal')->where('terminal_id', $getterminal[0]->terminal_id);
+        $check = \DB::table('terminal')->where('terminal_id', $getterminal[0]->terminal_id)->get();
         if(count($check) != 0){
           \DB::table('students')->whereRaw("studentnumber = '{$request->studentnumber}'")->update(['active'=>0]);
           return redirect('/')->with('message', "Success! Enjoy using this terminal")->with('show',false);

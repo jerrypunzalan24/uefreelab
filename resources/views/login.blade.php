@@ -17,7 +17,7 @@ Lead developer: Jeremiah F. Punzalan
 	<h1 style ='font-size:4em;margin-bottom:0px;text-shadow:2px 3px 2px #232323;font-family:Bebas;letter-spacing:3px'>UNIVERSITY OF THE <strong style ='color:#FF5E5E'>EAST</strong></h1>
 	<h1 style ='margin-top:5px;font-size:3em;text-shadow:2px 3px 2px #232323;font-family:Bebas;letter-spacing:3px'>FREELAB SYSTEM</h1>
 </div>
-<div class ='ui container' style='padding-top:120px'>
+<div class ='ui container' style='padding-top:150px'>
 	<div class ='ui card' style ='width:50%;margin-left:auto;background-color:rgba(0,0,0,0.5);box-shadow:none' id = 'rightdesc'>
 		<div class ='content'>
 			@if (session('error')!==null)
@@ -28,32 +28,33 @@ Lead developer: Jeremiah F. Punzalan
 			@endif
 			<form method ='post' class ='ui large form'>
 				@csrf
+				<div class ='field' style ='padding-right:0px'>
+					<label style ='color:white;font-weight:100'>Student number</label>
+					<input type ='number' class ='quantity trans'  name ='studentnumber' placeholder = 'Student number' autocomplete="off" />
+					<p id = 'error'style ='color:red'></p>
+				</div>
+				
 				<div class ='two fields'>
 					<div class ='field '  style ='padding-right:0px'>
 						<label style ='color:white;font-weight:100'>Firstname</label>
-						<input type ='text' class ='trans'  name ='fname' placeholder = 'First Name' />
+						<input type ='text' autocomplete="false" class ='trans'  name ='fname' placeholder = 'First Name' />
 						<p id = 'error' style ='color:red'></p>
 					</div>
 					<div class ='field' style ='padding-right:0px'>
 						<label style ='color:white;font-weight:100'>Lastname</label>
-						<input type ='text' class ='trans' placeholder = 'Last name' name ='lname'/>
+						<input type ='text' autocomplete="false" class ='trans' placeholder = 'Last name' name ='lname'/>
 						<p id = 'error' style ='color:red'></p>
 					</div>
-				</div>
-				<div class ='field' style ='padding-right:0px'>
-					<label style ='color:white;font-weight:100'>Student number</label>
-					<input type ='number' class ='quantity trans'  name ='studentnumber' placeholder = 'Student number'/>
-					<p id = 'error'style ='color:red'></p>
 				</div>
 				<div class ='two fields'>
 					<div class ='field' style ='padding-right:0px'>
 						<label style ='color:white;font-weight:100'>Course</label>
-						<input type ='text' class ='trans'  name ='course' placeholder = 'Course'/>
+						<input type ='text' autocomplete="off" class ='trans'  name ='course' placeholder = 'Course'/>
 						<p id = 'error'style ='color:red'></p>
 					</div>
 					<div class ='field'>
 						<label style ='color:white;font-weight:100'>Subject assigned</label>
-						<input type ='text' class ='trans' name ='subject' placeholder ='Use subject code'>
+						<input type ='text' autocomplete="off" class ='trans' name ='subject' placeholder ='Use subject code'>
 					</div>
 				</div>
 				<div class ='field'>

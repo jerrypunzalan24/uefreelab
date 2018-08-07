@@ -65,7 +65,7 @@
 							$.ajax({
 								type:"POST",
 								url:"/uefreelab/public/getterminals",
-								data:{id: e['lab_id']},
+								data:{id: e['lab_id'], reserved_lab_id: e['reserved_lab_id']},
 								success:function(html){
 									$('tbody').append(`
 										<tr class ='${color}'>
