@@ -10,8 +10,8 @@ Lead developer: Jeremiah F. Punzalan
 </div>
 @include ("styles")
 <div style ='position:absolute;bottom:10;right:10;'>
-<img src ='{{asset('assets/img/rnd-logo.png')}}' style ='width:40px;vertical-align:middle' />
-<span style ='color:white;font-weight:100'>Developed by UE CCSS	R&D</span>
+	<img src ='{{asset('assets/img/rnd-logo.png')}}' style ='width:40px;vertical-align:middle' />
+	<span style ='color:white;font-weight:100'>Developed by UE CCSS	R&D</span>
 </div>
 <div style ='position:absolute;top:60;left:10;color:#F9F9F9;font-weight:100'>
 	<h1 style ='font-size:4em;margin-bottom:0px;text-shadow:2px 3px 2px #232323;font-family:Bebas;letter-spacing:3px'>UNIVERSITY OF THE <strong style ='color:#FF5E5E'>EAST</strong></h1>
@@ -25,15 +25,19 @@ Lead developer: Jeremiah F. Punzalan
 				<i class ='close icon'></i>
 				<div class="header" >Error</div> Student {{session('error')}} is already scheduled
 			</div>
+			@elseif (session('notfound')!==null)
+			<div class ='ui error message' style ='font-size:0.9em'>
+				<i class ='close icon'></i>
+				<div class ='header'>Error</div> Student number '{{session('notfound')}}' not found.
+			</div>
 			@endif
-			<form method ='post' class ='ui large form'>
+			<form method ='post' class ='ui large form' id = 'registeredForm'>
 				@csrf
 				<div class ='field' style ='padding-right:0px'>
 					<label style ='color:white;font-weight:100'>Student number</label>
 					<input type ='number' class ='quantity trans'  name ='studentnumber' placeholder = 'Student number' autocomplete="off" />
 					<p id = 'error'style ='color:red'></p>
 				</div>
-				
 				<div class ='two fields'>
 					<div class ='field '  style ='padding-right:0px'>
 						<label style ='color:white;font-weight:100'>Firstname</label>
@@ -57,11 +61,31 @@ Lead developer: Jeremiah F. Punzalan
 						<input type ='text' autocomplete="off" class ='trans' name ='subject' placeholder ='Use subject code'>
 					</div>
 				</div>
-				<div class ='field'>
-					<input type ='submit' class ='ui button positive fluid' name ='btnSubmit' value = 'Check Schedules'/>
+				<div class ='two fields'>
+					<div class ='field'>
+						<input type ='submit' class ='ui button positive fluid' name ='btnSubmit' value = 'Check Schedules'/>
+					</div>
+					<div class ='field'>
+						<input type ='submit' id ='registered' class ='ui button positive fluid' value = 'I already registered here.'/>
+					</div>
 				</div>
-			</div>
-		</form>
+			</form>
+			<form method ='POST' id ='reservedForm' style ='display:none' class ='ui large form'>
+				@csrf
+				<div class ='field'>
+					<label style ='color:white;font-weight:100'>Enter your student number</label>
+					<input type ='text' class ='trans' name ='studentnumber' placeholder ='Student number' REQUIRED>
+				</div>
+				<div class ='two fields'>
+					<div class ='field'>
+						<input type ='submit' class ='ui button positive fluid' id ='goback' value ='Go Back'/>
+					</div>
+					<div class ='field'>
+						<input type ='submit' class ='ui button positive fluid' name ='btnReserveSubmit'>
+					</div>
+				</div>
+			</form>
+		</div>
 	</div>
 </div>
 
@@ -96,7 +120,26 @@ Lead developer: Jeremiah F. Punzalan
 			// $(this).closest('div.field').children().last().remove()
 		}
 	})
-		$('form').submit(function(e){
+
+		$('#registered').click(function(e){
+			e.preventDefault()
+			$('#registered').attr('disabled',true)
+			$('input[name=btnSubmit]').attr('disabled',true)
+			$('#goback').attr('disabled',false)
+			$('input[name=btnReserveSubmit]').attr('disabled',false)
+			$('#registeredForm').hide()
+			$('#reservedForm').show()
+		})
+		$('#goback').click(function(e){
+			e.preventDefault()
+			$('#goback').attr('disabled',true)
+			$('input[name=btnReserveSubmit]').attr('disabled',true)
+			$('#registered').attr('disabled',false)
+			$('input[name=btnSubmit]').attr('disabled',false)
+			$('#registeredForm').show()
+			$('#reservedForm').hide()
+		})
+		$('form#registeredForm').submit(function(e){
 			var valid = true
 			$('form input').each(function(){
 				if($(this).val() == ''){

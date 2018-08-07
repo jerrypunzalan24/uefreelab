@@ -11,6 +11,7 @@ class ReserveController extends Controller
     $hostip = substr($request->server("HTTP_HOST"), 0,strrpos($request->server("HTTP_HOST"), ":"));
     echo $hostip;
     echo $request->ip();
+    echo __DIR__;
     if($request->ip() === $hostip || $request->ip() === "127.0.0.1" || $request->ip()==="::1"){
     //if(false){
       if($request->has('btnSubmit')){
@@ -25,6 +26,22 @@ class ReserveController extends Controller
           return redirect('/stepone');
         }
         return redirect('/')->with('error',$request->studentnumber);
+      }
+      if($request->has('btnReserveSubmit')){
+        $check =\DB::table('students')->whereRaw("studentnumber ='{$request->studentnumber}'")->get();
+        if(count($check)!=0){
+          if(!$check[0]->status)
+            return redirect('/')->with('error', $request->studentnumber);
+          $request->session()->put("student", array("firstname"=>$check[0]->firstname,
+            "lastname"=>$check[0]->lastname,
+            "studentnumber" => $request->studentnumber,
+            "course" => $check[0]->course,
+            "subject" => $check[0]->subject
+          ));
+          return redirect('/stepone');
+        }
+        else
+          return redirect('/')->with('notfound',$request->studentnumber);
       }
       return view('login',['home'=>true,]);
     }
