@@ -29,6 +29,7 @@ Route::group(['prefix'=>'/dashboard', 'middleware' =>['checkhost','login']],func
   Route::group(['middleware'=>'admin_only'],function(){
     Route::group(['prefix'=>'/accounts',],function(){
       Route::get('/','DashboardController@accounts');
+    Route::post('/update','AccountsController@update');
       Route::post('/add','AccountsController@add');
       Route::post('/edit','AccountsController@edit');
       Route::post('/delete','AccountsController@delete');

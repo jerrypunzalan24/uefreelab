@@ -1,7 +1,7 @@
 @include ("adminside.dashboardheader")
 @include ("adminside.adminsidebar")
 @include ("modals")
-<base href ='uefreelab/public/dashboard/accounts/'>
+<base href ='/uefreelab/public/dashboard/accounts/'>
 <div class ='ui segment' style ='width:45%'>
   <div class ='header'>
     <h5 class ='title' style ='font-weight:500'></h5>
@@ -13,6 +13,10 @@
       <p><b>Facilitator</b> - can only access "Students inside the lab"</p>
     </div>
     <button class = 'ui blue button addbtn' id = 'acc' style ='margin-bottom:10px'><i class ='ui plus icon'></i>Add</button><br/>
+    <form method ='post' action = 'update'>
+      @csrf
+      <button type ='submit' class ='ui positive button'><i class ='ui upload icon'></i>Update System</button>
+    </form>
     
   @if(session('success')!==null)
   <div class ='ui blue message'>
