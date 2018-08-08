@@ -26,7 +26,7 @@
           <td>{{$result->studentnumber }}</td>
           <td>{{ $result->firstname }} {{ $result->lastname }}</td>
           <td>{{$result->course}}</td>
-          <td>{{$result->time_in}}</td>
+          <td>{{$result->time_in1}}</td>
           <td>{{$result->student_time_out }}</td>
           <td>{{$result->name}}</td>
           <td>{{$result->hours}}</td>
