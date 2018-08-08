@@ -30,7 +30,7 @@
                 <td>{{$result->active == 0 ? "Active" : "Inactive"}}</td>
                 <td>{{$result->subject}}</td>
                 <td>{{$result->course}}</td>
-                <td>{{ $result->time_in }}</td>
+                <td>{{ $result->time_in1 }}</td>
                 <td>{{ $result->name }} </td>
                 <td>
                     <input type ='hidden' name ='id' value ='{{$result->student_id}}'/>
@@ -47,6 +47,11 @@
 </div>
 </div>
 <script>
+  function timeout(id, studentnumber){
+    $('input[name=id1]').val(id)
+    $('input[name=studentnumber1]').val(studentnumber)
+    $('#timeout').modal('show')
+  }
   $(document).ready(function(){
     $('.timeout').click(function(e){
       var id = $(this).closest('tr').find('input[name=id]').val()

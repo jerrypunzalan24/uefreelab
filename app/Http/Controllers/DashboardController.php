@@ -48,7 +48,8 @@ class DashboardController extends Controller
   public function allstudents(Request $request){
     $results = \DB::table('students')
     ->join('reserved_lab','reserved_lab.reserved_lab_id','=','students.reserved_lab_id')
-    ->join('terminals','terminals.terminal_id','=','students.terminal_id1')->selectRaw('*, reserved_lab.time_out as lab_time_out, students.time_out as student_time_out')
+    ->join('terminals','terminals.terminal_id','=','students.terminal_id1')
+    ->selectRaw('*, reserved_lab.time_out as lab_time_out, students.time_out as student_time_out')
     ->where('students.status',1)->orderBy('student_id','DESC')->get();
     return view('adminside.allstudents',['allstudents'=>true,
       'results'=>$results,
@@ -59,7 +60,9 @@ class DashboardController extends Controller
     $results = \DB::table('students')
     ->join('reserved_lab','reserved_lab.reserved_lab_id','=','students.reserved_lab_id')
     ->join('terminals','terminals.terminal_id','=','students.terminal_id1')
-    ->where('students.status',0)->orderBy('student_id','DESC')->get();
+    ->selectRaw("*, students.time_in as time_in1")
+    ->where('students.status',0)->orderBy('student_id','DESC')
+    ->get();
     return view('adminside.insidethelab',['insidethelab'=>true,
       'results' => $results,
       'role'    => $request->session()->get("role")]);
