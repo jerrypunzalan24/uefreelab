@@ -11,7 +11,6 @@ class ReserveController extends Controller
     $hostip = substr($request->server("HTTP_HOST"), 0,strrpos($request->server("HTTP_HOST"), ":"));
     echo $hostip;
     echo $request->ip();
-    echo __DIR__;
     // if admin
     if($request->ip() === $hostip || $request->ip() === "127.0.0.1" || $request->ip()==="::1"){
     //if(false){
