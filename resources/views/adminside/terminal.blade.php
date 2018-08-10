@@ -37,7 +37,7 @@
           <td><b id =''>{{$result->name}}</b></td>
           <td id = 'ipAddress'>{{$result->ip}}</td>
           <td><div class ='ui buttons' style ='width:100%'>
-            <button class ='ui blue button editbtn lab' onclick = "editentry({{$result->lab_id}},'terminal',this)"><i class ='ui edit icon'></i>Edit</button>
+            <button class ='ui blue button editbtn lab' onclick = "editentry({{$result->terminal_id}},'terminal',this)"><i class ='ui edit icon'></i>Edit</button>
           </div></td>
         </tr>
         @endforeach

@@ -57,7 +57,11 @@
 				success:function(html){
 					console.log(html)
 					$('tbody').empty()
+					if(html.length === 0){
+						$('tbody').append(`<td colspan ='6' style ='text-align:center'>There are no available schedules at this moment.</td>`)
+					}
 					html.forEach(function(e){
+
 						var status = (e['status']==0)?"Available":"Not available"
 						var color = (e['status']==0)? "positive":"negative"
 						var disabled = (e['status']==0)?"" :"disabled"
@@ -92,8 +96,8 @@
 								}
 							})
 						}
-					
-				})
+
+					})
 					$('#roomsModal').modal('show');
 					$('.modal-title').html(`Assigned schedule for ${labname}`)
 				},

@@ -8,12 +8,13 @@ class AjaxController extends Controller
 {
   public function getschedule(Request $request){
     $day = date("l")[0];
+    $currenttime = date("H:i:s");
     $sched = \DB::select("SELECT *, (
       SELECT COUNT(*)
       FROM students 
       WHERE students.reserved_lab_id = reserved_lab.reserved_lab_id AND students.status = 0
       ) AS reserve_count FROM reserved_lab 
-      JOIN labs ON labs.lab_id = reserved_lab.lab_id WHERE reserved_lab.lab_id = {$request->lab_id}");
+      JOIN labs ON labs.lab_id = reserved_lab.lab_id WHERE reserved_lab.lab_id = {$request->lab_id} AND (reserved_lab.time_in < '{$currenttime}' AND reserved_lab.time_out > '{$currenttime}')");
     return $sched;
   }
   public function getterminals(Request $request){

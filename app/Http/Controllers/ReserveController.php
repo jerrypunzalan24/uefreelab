@@ -12,6 +12,7 @@ class ReserveController extends Controller
     echo $hostip;
     echo $request->ip();
     echo __DIR__;
+    // if admin
     if($request->ip() === $hostip || $request->ip() === "127.0.0.1" || $request->ip()==="::1"){
     //if(false){
       if($request->has('btnSubmit')){
@@ -45,29 +46,33 @@ class ReserveController extends Controller
       }
       return view('login',['home'=>true,]);
     }
+    //check if not registered
     $checkterminal = \DB::table('terminals')->where("ip", $request->ip())->get();
     if(count($checkterminal) == 0){
       return view('error',['message' => 'This device is not registered in this system.']);
     }
+    // if guest
     if($request->has('verify')){
       $checkstudent = \DB::table('students')->whereRaw("studentnumber = '{$request->studentnumber}' AND active = 0")->get();
       if(count($checkstudent)==0){
-        $getterminal= \DB::table('students')->where('studentnumber',$request->studentnumber)->selectRaw("*, terminal_id1 AS terminal_id")->get();
+        $getterminal= \DB::table('students')->where('studentnumber',$request->studentnumber)
+        ->join('terminals','students.terminal_id1','=','terminals.terminal_id')
+        ->get();
+        echo print_r($getterminal);
         if(count($getterminal) == 0)
           return redirect('/')->with('error', 'Student number not registered or not found');
-        $check = \DB::table('terminal')->where('terminal_id', $getterminal[0]->terminal_id)->get();
-        if(count($check) != 0){
+        if($getterminal[0]->ip === $request->ip()){
           \DB::table('students')->whereRaw("studentnumber = '{$request->studentnumber}'")->update(['active'=>0]);
           return redirect('/')->with('message', "Success! Enjoy using this terminal")->with('show',false);
         }
         else{
-          return redirect('/')->with('error',"Your assigned terminal is {$getterminal->terminal_name}");
+          return redirect('/')->with('error',"Your assigned terminal is {$getterminal[0]->name}");
         }
       }else{
-        return redirect('/')->with('error',"You have already registered this terminal");
+        return redirect('/')->with('error',"You are already registered this terminal");
       }
     }
-    return view('sync');
+    return view('sync',['terminal'=> $checkterminal[0]->name]);
   }
   public function stepone(Request $request){
     if($request->session()->has('student')){

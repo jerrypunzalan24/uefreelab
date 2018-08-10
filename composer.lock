@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "df9433c852256eebf76df1bc9623fab3",
+    "content-hash": "843172bf8bd83d01cf68ee3a52b94f8d",
     "packages": [
         {
             "name": "codedge/laravel-fpdf",

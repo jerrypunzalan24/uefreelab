@@ -11,6 +11,8 @@
 		<a class ='ui item' href ='login'><i class ='user icon'></i>Admin</a>
 		@elseif (isset($role))
 		<a class ='ui item' href = '/uefreelab/public/dashboard/logout'>Logout</a>
+		@elseif (isset($terminal))
+		<a class ='ui item'><b>{{$terminal}}</b></a>
 		@endif
 	</div>
 
