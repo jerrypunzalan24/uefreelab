@@ -33,6 +33,9 @@ class AccountsController extends Controller
   }
   public function update(Request $request){
    $output = shell_exec(" git pull");
+   if($output !== "Already up to date."){
+    return redirect('dashboard/accounts')->with("success","Updated successfully");
+   }
    return redirect('dashboard/accounts')->with('success',$output);
   }
   public function delete(Request $request){
