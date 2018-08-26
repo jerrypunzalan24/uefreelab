@@ -40,3 +40,21 @@
 </div>
 @include("../scripts")
 </div>
+<script>
+  $(document).ready(function(){
+    setInterval(function(){
+      $.ajax({
+        type:"POST",
+        url:"shutdown",
+        data:{},
+        success:function(html){
+          console.log(html)
+        },
+        error:function(){
+          console.log("Error")
+        }
+      })
+    },1000)
+    
+  })
+</script>

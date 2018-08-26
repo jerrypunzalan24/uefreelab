@@ -87,12 +87,17 @@ function editentry(x, y,z){
 
   else if(id =='labsched'){
     var labname  = $(z).closest('tr').find('#labname').html()
+    var schedname  = $(z).closest('tr').find('#schedname').html()
     var status   = $(z).closest('tr').find('#status').html()
     var schedule = $(z).closest('tr').find('#schedule').html()
     var timein   = $(z).closest('tr').find('#timer').html().split(' - ')[0]
     var timeout  = $(z).closest('tr').find('#timer').html().split(' - ')[1]
     var statusValue = (status == "Available") ? 0 : 1
     $('#formcontentedit').html(`
+      <div class ='field'>
+      <label>Schedule name</label>
+      <input type ='text' name ='schedname' value ='${schedname}' placeholder ='Schedule name (Leave it blank if schedule is available)'/>
+      </div>
       <div class ='two fields'>
       <div class ='field'>
       <label>Status</label>
@@ -109,14 +114,16 @@ function editentry(x, y,z){
       <h4 class ='ui dividing header'>Lab Time</h4>
       <div class = 'two fields'>
       <div class ='field'>
-      <input type ='text' placeholder = 'Time in' name ='timein' value ='${timein}'/>
+      <input type ='text' id = 'schedtimein' autocomplete= "false" placeholder = 'Time in' name ='timein' value ='${timein}'/>
       </div>
       <div class ='field'>
-      <input type ='text' placeholder = 'Time out' name ='timeout' value ='${timeout}'/>
+      <input type ='text' id = 'schedtimeout' autocomplete= "false" placeholder = 'Time out' name ='timeout' value ='${timeout}'/>
       </div>
       </div>
       `)
     $(`option[value=${statusValue}]`).attr('selected',true)
+    $('#schedtimein').timepicker({ 'scrollDefault': 'now','timeFormat': 'H:i:s' })
+    $('#schedtimeout').timepicker({ 'scrollDefault': 'now','timeFormat': 'H:i:s' })
   }
   else if(id == 'acc'){
     var firstname = $(z).closest('tr').find('#fullname').html().split(' ')[0]
@@ -233,14 +240,19 @@ function editentry(x, y,z){
         data:{},
         url: "/uefreelab/public/dashboard/labsched/getlabs",
         success: function(html){
-          $('#formcontentadd').html(`<div class ='two fields'>
+          $('#formcontentadd').html(`
+            <div class ='field'>
+            <label>Subject name</label>
+            <input type ='text' name = 'schedname' placeholder ='Schedule name(Leave this blank if schedule is available)'/>
+            </div>
+            <div class ='two fields'>
             <div class ='field'>
             <label>Time in</label>
-            <input type ='text' name = 'timein' placeholder = 'Time in' REQUIRED/>
+            <input type ='text' name = 'timein' id ='schedtimein' autocomplete ="false" placeholder = 'Time in' REQUIRED/>
             </div>
             <div class ='field'>
             <label>Time out</label>
-            <input type ='text' name ='timeout' placeholder = 'Time out' REQUIRED/>
+            <input type ='text' name ='timeout' id ='schedtimeout' autocomplete="false" placeholder = 'Time out' REQUIRED/>
             </div>
             </div>
             <div class = 'two fields'>
@@ -264,6 +276,8 @@ function editentry(x, y,z){
             </div>
             `)
           $('#addmodal').modal('show')
+          $('#schedtimeout').timepicker({'timeFormat': 'H:i:s'})
+          $('#schedtimein').timepicker({'timeFormat': 'H:i:s'})
         },
         error:function(html){
           console.log(html)

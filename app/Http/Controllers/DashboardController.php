@@ -76,7 +76,7 @@ class DashboardController extends Controller
   }
   public function labsched(Request $request){
     $results = \DB::table('reserved_lab')->join('labs','reserved_lab.lab_id','=','labs.lab_id')
-    ->orderByRaw("lab_name ASC, schedule ASC, time_in ASC")->get();
+    ->orderByRaw("schedule ASC, time_in ASC")->get();
     $buttons = \DB::table('labs')->orderByRaw("lab_name ASC")->get();
     return view('adminside.labsched',['labsched'=>true,
       'admin' => true,

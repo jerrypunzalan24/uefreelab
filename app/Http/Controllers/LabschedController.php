@@ -9,16 +9,17 @@ class LabschedController extends Controller
 {
   public function add(Request $request){
     \DB::table('reserved_lab')->insertgetId([
+      'description' => $request->schedname == "" ? "Available schedule" : $request->schedname,
       'lab_id' => $request->lab,
       'time_in' => $request->timein,
       'time_out'=>$request->timeout,
       'status' => $request->status,
-      'schedule' => $request->schedule,
-      'description' => '']);
+      'schedule' => $request->schedule]);
     return redirect('/dashboard/labsched')->with('success','Entry has been added');
   }
   public function edit(Request $request){
     \DB::table('reserved_lab')->where('reserved_lab_id',$request->id)->update([
+      'description' => $request->schedname == "" ? "Available schedule" : $request->schedname,
       'status' => $request->status,
       'schedule' => $request->schedule,
       'time_in' => $request->timein,
@@ -121,9 +122,10 @@ class LabschedController extends Controller
     ->orderByRaw("labs.lab_name ASC, reserved_lab.schedule ASC, reserved_lab.time_in ASC")->get();
     foreach($results as $result){
       $status = $result->status == 0 ? "Available" : "Not available" ;
+      $desc = $result->description === "" ? "Available Schedule" : $result->description;
       $response_html .= "<tr>
       <td><b id = 'timer'>{$result->time_in} - {$result->time_out}</td>
-      <td>{$result->description}</td>
+      <td>{$desc}</td>
       <td id = 'labname'>{$result->lab_name}</td>
       <td id = 'status'>{$status}</td>
       <td id = 'schedule'>{$result->schedule}</td>

@@ -17,6 +17,10 @@ class AjaxController extends Controller
       JOIN labs ON labs.lab_id = reserved_lab.lab_id WHERE reserved_lab.lab_id = {$request->lab_id} AND (reserved_lab.time_in < '{$currenttime}' AND reserved_lab.time_out > '{$currenttime}')");
     return $sched;
   }
+  public function shutdown(Request $request){
+    // return shell_exec("shutdown /h");
+    return "Check";
+  }
   public function getterminals(Request $request){
 
     $terminalStr ="";

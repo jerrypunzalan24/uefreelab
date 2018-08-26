@@ -57,8 +57,8 @@ Lead developer: Jeremiah F. Punzalan
 						<p id = 'error'style ='color:red'></p>
 					</div>
 					<div class ='field'>
-						<label style ='color:white;font-weight:100'>Subject assigned</label>
-						<input type ='text' autocomplete="off" class ='trans' name ='subject' placeholder ='Use subject code'>
+						<label style ='color:white;font-weight:100'>Subject assigned with section</label>
+						<input type ='text' autocomplete="off" class ='trans' name ='subject' placeholder ='Use subject code with section'>
 					</div>
 				</div>
 				<div class ='two fields'>
@@ -141,7 +141,7 @@ Lead developer: Jeremiah F. Punzalan
 		})
 		$('form#registeredForm').submit(function(e){
 			var valid = true
-			$('form input').each(function(){
+			$('form#registeredForm input').each(function(){
 				if($(this).val() == ''){
 					valid = false
 					$(this).closest('div.field').addClass('error')

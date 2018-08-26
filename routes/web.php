@@ -17,6 +17,7 @@ Route::any('/success',"ReserveController@success");
 Route::post('/getschedule',"AjaxController@getschedule");
 Route::post('/getterminals', "AjaxController@getterminals");
 Route::post('/filterterminal', "AjaxController@filterterminal");
+Route::post('/shutdown', "AjaxController@shutdown");
 Route::any("/login","DashboardController@index")->middleware('checkhost');
 Route::group(['prefix'=>'/dashboard', 'middleware' =>['checkhost','login']],function(){
   Route::post('/check', "AjaxController@check");

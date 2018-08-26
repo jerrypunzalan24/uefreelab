@@ -63,6 +63,7 @@ class ReserveController extends Controller
         if($getterminal[0]->ip === $request->ip()){
           \DB::table('students')->whereRaw("studentnumber = '{$request->studentnumber}'")->update(['active'=>0]);
           return redirect('/')->with('message', "Success! Enjoy using this terminal")->with('show',false);
+          $request->session()->put("login", $request->ip());
         }
         else{
           return redirect('/')->with('error',"Your assigned terminal is {$getterminal[0]->name}");

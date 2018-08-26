@@ -54,7 +54,7 @@
       @foreach ($results as $result)
       <tr>
         <td><b id = 'timer'>{{ $result->time_in }} - {{ $result->time_out}}</b></td> 
-        <td>{{$result->description === "" ?  "Available Schedule" : $result->description}}</td>   
+        <td id ='schedname  '>{{$result->description === "" ?  "Available Schedule" : $result->description}}</td>   
         <td id = 'labname'>{{ $result->lab_name }}</td>
         <td id = 'status'>{{ $result->status == 0 ? "Available" :"Not available" }}</td>
         <td id = 'schedule'>{{ $result->schedule }}</td>
@@ -74,5 +74,9 @@
 <script>
   $('#fileupload').change(function(){
     $('#fileupload').submit()
+  })
+  $(document).ready(function(){
+    $('#schedtimein').timepicker();
+    $('#schedtimeout').timepicker();
   })
 </script>

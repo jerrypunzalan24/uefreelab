@@ -7,6 +7,7 @@
   <link rel ='stylesheet' href = "{{ asset('assets/css/dataTables.semanticui.min.css'  )}}"/>
   <link rel ='stylesheet' href = "{{ asset('assets/css/jquery.datetimepicker.min.css'  )}}"/>
   <link rel ='stylesheet' href = "{{ asset('assets/css/jquery.datetimepicker.css'  )}}"/>
+  <link rel ='stylesheet' href = "{{ asset('assets/js/timepicker/jquery.timepicker.css'  )}}"/>
 <style>
 .quantity::-webkit-inner-spin-button, 
 .quantity::-webkit-outer-spin-button { 
