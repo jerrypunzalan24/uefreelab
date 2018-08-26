@@ -125,7 +125,7 @@ class LabschedController extends Controller
       $desc = $result->description === "" ? "Available Schedule" : $result->description;
       $response_html .= "<tr>
       <td><b id = 'timer'>{$result->time_in} - {$result->time_out}</td>
-      <td>{$desc}</td>
+      <td id ='schedname'>{$desc}</td>
       <td id = 'labname'>{$result->lab_name}</td>
       <td id = 'status'>{$status}</td>
       <td id = 'schedule'>{$result->schedule}</td>
